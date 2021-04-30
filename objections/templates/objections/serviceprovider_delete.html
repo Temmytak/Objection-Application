@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block pageheader %}
+    <p>Delete Service Provider</p>
+{% endblock pageheader %}
+
+{% block contentheader %}
+    <p>delete service provider record</p>
+{% endblock contentheader %}
+
+{% block content %}
+<div class="flex flex-wrap border-2 border-gray-400 p-4">
+    <div class="flex flex-col items-center">
+        <div class="pb-4"><h1>Are you sure you want to delete this record?</h1></div>
+            <div class="flex w-full justify-around">    
+                <div class="flex">
+                    <a href="{% url 'serviceprovider-detail' serviceprovider.id %}" class="flex justify-center h-8 w-24 text-xs items-center text-indigo-100 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">No</a>
+                </div>
+                <div class="flex">        
+                    <form method="post" class="flex flex-col items-center"> 
+                        {% csrf_token %} 
+                        <table>{{ form }}</table>
+                        <input class="h-8 w-24 text-xs text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Yes"> 
+                    </form> 
+                </div>   
+            </div>      
+    </div>
+</div>
+{% endblock content %}

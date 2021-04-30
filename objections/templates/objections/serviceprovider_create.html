@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block pageheader %}
+    <p>Create Service Provider</p>
+{% endblock pageheader %}
+
+{% block contentheader %}
+    <p>create a service provider record</p>
+{% endblock contentheader %}
+
+{% block content %}
+<div class="flex flex-wrap border-2 border-gray-400 p-4">
+    <div class="flex">
+        <form method="post" class="flex flex-col items-center"> 
+            {% csrf_token %} 
+            <table>{{ form }}</table>
+            <div class="flex pt-4">
+                <input class="h-8 w-24 text-xs text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Save"> 
+            </div>
+        </form> 
+    </div>
+</div>
+{% endblock content %}
