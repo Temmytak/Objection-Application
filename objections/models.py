@@ -28,6 +28,14 @@ class Agent(models.Model):
 class ComplaintLanguage(models.Model):
     name = models.CharField(max_length=10)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)
+
     class Meta:
         verbose_name = 'Complaint Language'
         verbose_name_plural = 'Complaint Language'
@@ -38,17 +46,41 @@ class ComplaintLanguage(models.Model):
 class StatusNote(models.Model):
     name = models.CharField(max_length=50)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
+
     def __str__(self):
         return self.name
 
 class ReferencedCodeSection(models.Model):
     name = models.CharField(max_length=500)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
+
     def __str__(self):
         return self.name
 
 class ObjectionStatus(models.Model):
     name = models.CharField(max_length=50)
+
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
         verbose_name = 'Objection Status'
@@ -60,6 +92,14 @@ class ObjectionStatus(models.Model):
 class ObjectionAssessment(models.Model):
     name = models.CharField(max_length=500)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
+
     class Meta:
         verbose_name = 'Objection Assessment'
         verbose_name_plural = 'Objection Assessment'    
@@ -70,11 +110,27 @@ class ObjectionAssessment(models.Model):
 class ClosingLevel(models.Model):
     name = models.CharField(max_length=20)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
+
     def __str__(self):
         return self.name
 
 class CCTSAssistanceRequired(models.Model):
     name = models.CharField(max_length=20)
+
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
         verbose_name = 'CCTS Assistance Required'
@@ -85,6 +141,14 @@ class CCTSAssistanceRequired(models.Model):
 
 class CustomerAssistanceRequired(models.Model):
     name = models.CharField(max_length=5)
+
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    name = models.CharField(max_length=100)
+    active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
         verbose_name = 'Customer Assistance Required'
