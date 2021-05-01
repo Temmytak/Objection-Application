@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block pageheader %}
-    <p>View Service Provider</p>
+    <p>View Agent</p>
 {% endblock pageheader %}
 
 {% block contentheader %}
-    <p>detail of service provider</p>
+    <p>detail of agent</p>
 {% endblock contentheader %}
 
 {% block content %}
@@ -14,32 +14,23 @@
         <thead class="justify-between">
           <tr class="bg-gray-800">
             <th class="px-8 py-2 text-left">
-              <span class="text-gray-300">Service Provider Name</span>
-            </th>
-            <th class="px-8 py-2 text-left">
-              <span class="text-gray-300">Active</span>
+              <span class="text-gray-300">Agent Username</span>
             </th>
           </tr>
         </thead>
         <tbody class="bg-gray-200">
           <tr class="bg-white border-4 border-gray-200">
             <td class="px-8 py-2 text-left">
-              <span>{{ serviceprovider.name }}</a></span>
-            </td>
-            <td class="px-8 py-2 text-left">
-              <span>{{ serviceprovider.active }}</span>
+              <span>{{ agent.user }}</a></span>
             </td>
           </tr>
         </tbody>
     </table>
 
     <div class="flex flex-wrap w-full text-center">
-        <div class="pt-4">
-            <a href="{% url 'serviceprovider-update' serviceprovider.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
-        </div>
         <div class="w-8"></div>
         <div class="pt-4">                
-            <a href="{% url 'service-provider' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
+            <a href="{% url 'agent-home' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
         </div>                          
     </div>
 </div>

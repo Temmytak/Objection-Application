@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     pass
 
+
 class ServiceProvider(models.Model):
 
     active_choices = (
@@ -19,11 +20,13 @@ class ServiceProvider(models.Model):
     def __str__(self):
         return self.name
 
+
 class Agent(models.Model):
     user = models.OneToOneField(to = User, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.user.email
+
 
 class ComplaintLanguage(models.Model):
     name = models.CharField(max_length=10)
@@ -43,6 +46,7 @@ class ComplaintLanguage(models.Model):
     def __str__(self):
         return self.name
 
+
 class StatusNote(models.Model):
     name = models.CharField(max_length=50)
 
@@ -57,6 +61,7 @@ class StatusNote(models.Model):
     def __str__(self):
         return self.name
 
+
 class ReferencedCodeSection(models.Model):
     name = models.CharField(max_length=500)
 
@@ -70,6 +75,7 @@ class ReferencedCodeSection(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ObjectionStatus(models.Model):
     name = models.CharField(max_length=50)
@@ -89,6 +95,7 @@ class ObjectionStatus(models.Model):
     def __str__(self):
         return self.name
 
+
 class ObjectionAssessment(models.Model):
     name = models.CharField(max_length=500)
 
@@ -107,6 +114,7 @@ class ObjectionAssessment(models.Model):
     def __str__(self):
         return self.name
 
+
 class ClosingLevel(models.Model):
     name = models.CharField(max_length=20)
 
@@ -120,6 +128,7 @@ class ClosingLevel(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class CCTSAssistanceRequired(models.Model):
     name = models.CharField(max_length=20)
@@ -139,6 +148,7 @@ class CCTSAssistanceRequired(models.Model):
     def __str__(self):
         return self.name
 
+
 class CustomerAssistanceRequired(models.Model):
     name = models.CharField(max_length=5)
 
@@ -156,6 +166,7 @@ class CustomerAssistanceRequired(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Objection(models.Model):
     complaint_id = models.CharField(max_length=10)
@@ -178,4 +189,3 @@ class Objection(models.Model):
 
     def __str__(self):
         return self.name
-
