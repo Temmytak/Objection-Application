@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import ServiceProvider, Agent
+from .models import ServiceProvider, Agent, ComplaintLanguage, StatusNote
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
-from .forms import ServiceProviderForm, AgentForm
+from .forms import ServiceProviderForm, AgentForm, LanguageForm, StatusNoteForm
 
 # Create your views here.
 def home_page(request):
@@ -106,3 +106,89 @@ class agent_list(ListView):
         return agent_list
 
 
+class language_list(ListView):
+    template_name = 'objections/language_list.html'
+    model = ComplaintLanguage
+    context_object_name = 'languages'
+    paginate_by = 10
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('name',)
+        except KeyError:
+            a = None
+        if a:
+            language_list = ComplaintLanguage.objects.filter(
+                name__icontains=a
+            )
+        else:
+            language_list = ComplaintLanguage.objects.all().order_by('name')
+        return language_list
+
+
+class language_detail(DetailView):
+    template_name = 'objections/language_detail.html'
+    model = ComplaintLanguage
+    context_object_name = 'language'
+
+
+class language_update(UpdateView):
+    model = ComplaintLanguage
+    context_object_name = 'language'
+    template_name = 'objections/language_update.html'
+    fields = [
+        "name",
+        "active"
+    ]
+    success_url = reverse_lazy("language-list")
+
+
+class language_create(CreateView):
+    template_name = 'objections/language_create.html'
+    form_class = LanguageForm
+
+    success_url = reverse_lazy("language-list")
+
+
+class statusnote_list(ListView):
+    template_name = 'objections/statusnote_list.html'
+    model = StatusNote
+    context_object_name = 'statusnotes'
+    paginate_by = 10
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('name',)
+        except KeyError:
+            a = None
+        if a:
+            statusnote_list = StatusNote.objects.filter(
+                name__icontains=a
+            )
+        else:
+            statusnote_list = StatusNote.objects.all().order_by('name')
+        return statusnote_list
+
+
+class statusnote_detail(DetailView):
+    template_name = 'objections/statusnote_detail.html'
+    model = StatusNote
+    context_object_name = 'statusnote'
+
+
+class statusnote_update(UpdateView):
+    model = StatusNote
+    context_object_name = 'statusnote'
+    template_name = 'objections/statusnote_update.html'
+    fields = [
+        "name",
+        "active"
+    ]
+    success_url = reverse_lazy("statusnote-list")
+
+
+class statusnote_create(CreateView):
+    template_name = 'objections/statusnote_create.html'
+    form_class = StatusNoteForm
+
+    success_url = reverse_lazy("statusnote-list")

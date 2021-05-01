@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from objections.views import (
     administrative_tasks, serviceprovider_list, home_page, serviceprovider_detail, serviceprovider_update, 
-    serviceprovider_create, agent_list, agent_detail, agent_create
+    serviceprovider_create, agent_list, agent_detail, agent_create, language_list, language_detail, language_create, language_update,
+    statusnote_list, statusnote_detail, statusnote_create, statusnote_update
     )
 
 urlpatterns = [
@@ -37,5 +38,15 @@ urlpatterns = [
     path('administrative-tasks/agent/<int:pk>/', agent_detail.as_view(), name = 'agent-detail'),
     #path('administrative-tasks/agent/<int:pk>/update/', agent_update.as_view(), name = 'agent-update'),
     #path('administrative-tasks/agent/<int:pk>/delete/', agent_delete.as_view(), name='agent-delete'),
-    path('administrative-tasks/agent/create/', agent_create.as_view(), name='agent-create'),     
+    path('administrative-tasks/agent/create/', agent_create.as_view(), name='agent-create'),    
+
+    path('administrative-tasks/language/', language_list.as_view(), name = 'language-list'),
+    path('administrative-tasks/language/<int:pk>/', language_detail.as_view(), name = 'language-detail'),
+    path('administrative-tasks/language/<int:pk>/update/', language_update.as_view(), name = 'language-update'),
+    path('administrative-tasks/language/create/', language_create.as_view(), name='language-create'),        
+
+    path('administrative-tasks/statusnote/', statusnote_list.as_view(), name = 'statusnote-list'),
+    path('administrative-tasks/statusnote/<int:pk>/', statusnote_detail.as_view(), name = 'statusnote-detail'),
+    path('administrative-tasks/statusnote/<int:pk>/update/', statusnote_update.as_view(), name = 'statusnote-update'),
+    path('administrative-tasks/statusnote/create/', statusnote_create.as_view(), name='statusnote-create'),       
 ]
