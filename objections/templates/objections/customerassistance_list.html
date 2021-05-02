@@ -22,7 +22,7 @@
         </div>
     </div>
     {% if customerassistances %}
-        <div><p class = "py-2 text-left"> Click on a Value to Update or <span><a href="{% url 'customerassistance-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p></div>
+        <div class="flex w-full"><div class="flex w-2/3"><p class = "py-2 text-left"> Click on a Value to Update or <span><a href="{% url 'customerassistance-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p></div> <div class="flex w-1/3 justify-end"><a href="{% url 'administrative-tasks' %}" class = "py-2 text-right font-bold text-gray-500 hover:text-blue-800 underline"> Back to admin tasks</a></div></div>        
             <table id="psp" class="min-w-full table-auto display">
                 <thead class="justify-between">
                 <tr class="bg-gray-800">
