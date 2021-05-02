@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block pageheader %}
-    <p>Create Agent</p>
+    <p>Update Closing Level</p>
 {% endblock pageheader %}
 
 {% block contentheader %}
-    <p>create an agent record</p>
+    <p>detail of closing level for edit</p>
 {% endblock contentheader %}
 
 {% block content %}
@@ -18,10 +18,10 @@
                 <div class="flex pt-4 justify-between">
                     <input class="h-8 w-24 text-xs text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Save"> 
                     <div class="w-4"></div>
-                    <a href="{% url 'administrative-tasks' %}" class="flex justify-center h-8 w-24 text-xs items-center text-indigo-100 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">Cancel</a>
+                    <a href="{% url 'closinglevel-detail' closinglevel.id %}" class="flex justify-center h-8 w-24 text-xs items-center text-indigo-100 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">Cancel</a>
                 </div>
             </form> 
         </div>
-    </div>         
+    </div>  
 </div>
 {% endblock content %}

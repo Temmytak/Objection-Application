@@ -1,5 +1,8 @@
 from django import forms
-from .models import ServiceProvider, Agent, ComplaintLanguage, StatusNote
+from .models import (
+    ServiceProvider, Agent, ComplaintLanguage, StatusNote, ReferencedCodeSection, 
+    ObjectionStatus, ObjectionAssessment, ClosingLevel, CCTSAssistanceRequired, CustomerAssistanceRequired
+    )
 
 class ServiceProviderForm(forms.ModelForm):
     class Meta:
@@ -33,3 +36,55 @@ class StatusNoteForm(forms.ModelForm):
             'active',
         )
 
+
+class RefCodeForm(forms.ModelForm):
+    class Meta:
+        model = ReferencedCodeSection
+        fields = (
+            'name',
+            'active',
+        )
+
+
+class ObjectionStatusForm(forms.ModelForm):
+    class Meta:
+        model = ObjectionStatus
+        fields = (
+            'name',
+            'active',
+        )
+
+
+class ObjectionAssessmentForm(forms.ModelForm):
+    class Meta:
+        model = ObjectionAssessment
+        fields = (
+            'name',
+            'active',
+        )
+
+
+class ClosingLevelForm(forms.ModelForm):
+    class Meta:
+        model = ClosingLevel
+        fields = (
+            'name',
+            'active',
+        )
+
+class CctsAssistanceForm(forms.ModelForm):
+    class Meta:
+        model = CCTSAssistanceRequired
+        fields = (
+            'name',
+            'active',
+        )        
+
+
+class CustomerAssistanceForm(forms.ModelForm):
+    class Meta:
+        model = CustomerAssistanceRequired
+        fields = (
+            'name',
+            'active',
+        )                
