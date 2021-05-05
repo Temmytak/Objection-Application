@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block pageheader %}
+    <p>View Objection</p>
+{% endblock pageheader %}
+
+{% block contentheader %}
+    <p>detail of objection</p>
+{% endblock contentheader %}
+
+{% block content %}
+<div class="flex flex-wrap w-1/2  p-4">
+            <div class="w-full"> 
+                <div class="flex flex-wrap w-full text-center justify-end">
+                    <div class="pb-4">
+                        <a href="{% url 'objection-update' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
+                    </div>
+                    <div class="w-8"></div>
+                    <div class="pb-4">
+                        <a href="{% url 'objection-delete' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Delete</a>
+                    </div>
+                    <div class="w-8"></div>                    
+                    <div class="pb-4">                
+                        <a href="{% url 'objection-list' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
+                    </div>                          
+                </div>            
+                <div class="w-full">
+                    <label class="font-bold w-full">IMS Complaint ID:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.complaint_id }}</label>
+                    </div>                         
+                </div>
+                <br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Complaint Language:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.complaint_language }}</label>                        
+                    </div>                         
+                </div>
+                <br>           
+                <div class="w-full">
+                    <label class="font-bold w-full">Service Provider:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display2">{{ objection.service_provider }}</label>                         
+                    </div>                         
+                </div>
+                <br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Agent:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.agent }}</label>                           
+                    </div>                         
+                </div>
+                <br>   
+                <div class="w-full">
+                    <label class="font-bold w-full">Date Submitted:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.date_submitted }}</label>                           
+                    </div>                         
+                </div>
+                <br>         
+                <div class="w-full">
+                    <label class="font-bold w-full">Start Date of Processing:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.date_processing_start }}</label>                           
+                    </div>                         
+                </div>
+                <br>   
+                <div class="w-full">
+                    <label class="font-bold w-full">Due Date:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.due_date }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Status Note:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display2">{{ objection.status_note }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">PSP Objection Referenced Code Section:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display3">{{ objection.psp_objection_referenced_code_section }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Determination Referenced Code Section:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display3">{{ objection.ccts_determination_referenced_code_section }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Objection Status:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.objection_status }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Assessment:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display4">{{ objection.ccts_assessment }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Closing Level:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.closing_level }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Assistance Required:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.ccts_assistance_required }}</label>                           
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Customer Assistance Required:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.customer_assistance_required }}</label>                           
+                    </div> 
+                <br>                        
+                </div>
+                <div class="w-full">
+                    <label class="font-bold w-full">End Date of Processing:</label>
+                    <div class="pt-2">
+                        <label class="w-full label_display1">{{ objection.date_processing_end }}</label>                           
+                    </div>                         
+                </div>
+
+                <br>
+                <div class="flex flex-wrap w-full text-center justify-end">
+                    <div class="pt-4">
+                        <a href="{% url 'objection-update' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
+                    </div>
+                    <div class="w-8"></div>
+                    <div class="pt-4">
+                        <a href="{% url 'objection-delete' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Delete</a>
+                    </div>
+                    <div class="w-8"></div>                    
+                    <div class="pt-4">                
+                        <a href="{% url 'objection-list' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
+                    </div>                          
+                </div>
+            </div> 
+</div>
+{% endblock content %}

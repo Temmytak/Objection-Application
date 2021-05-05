@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block pageheader %}
+    <p>Create Objection</p>
+{% endblock pageheader %}
+
+{% block contentheader %}
+    <p>add a new objection for processing</p>
+{% endblock contentheader %}
+
+{% block content %}
+<div class="flex flex-wrap w-1/2  p-4">
+            <form method="post" class="w-full"> 
+                {% csrf_token %} 
+
+                <div class="w-full">
+                    <label class="font-bold w-full">IMS Complaint ID:</label>
+                    <div class="pt-2">
+                        {% render_field form.complaint_id class="form_input" %}
+                    </div>                         
+                </div>
+                <br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Complaint Language:</label>
+                    <div class="pt-2">
+                        {% render_field form.complaint_language class="form_input" %}
+                    </div>                         
+                </div>
+                <br>           
+                <div class="w-full">
+                    <label class="font-bold w-full">Service Provider:</label>
+                    <div class="pt-2">
+                        {% render_field form.service_provider class="form_input" %}
+                    </div>                         
+                </div>
+                <br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Agent:</label>
+                    <div class="pt-2">
+                        {% render_field form.agent class="form_input" %}
+                    </div>                         
+                </div>
+                <br>   
+                <div class="w-full">
+                    <label class="font-bold w-full">Date Submitted:</label>
+                    <div class="pt-2">
+                        {% render_field form.date_submitted class="form_input" %}
+                    </div>                         
+                </div>
+                <br>         
+                <div class="w-full">
+                    <label class="font-bold w-full">Start Date of Processing:</label>
+                    <div class="pt-2">
+                        {% render_field form.date_processing_start class="form_input" %}
+                    </div>                         
+                </div>
+                <br>   
+                <div class="w-full">
+                    <label class="font-bold w-full">Due Date:</label>
+                    <div class="pt-2">
+                        {% render_field form.due_date class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Status Note:</label>
+                    <div class="pt-2">
+                        {% render_field form.status_note class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">PSP Objection Referenced Code Section:</label>
+                    <div class="pt-2">
+                        {% render_field form.psp_objection_referenced_code_section class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Determination Referenced Code Section:</label>
+                    <div class="pt-2">
+                        {% render_field form.ccts_determination_referenced_code_section class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Objection Status:</label>
+                    <div class="pt-2">
+                        {% render_field form.objection_status class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Assessment:</label>
+                    <div class="pt-2">
+                        {% render_field form.ccts_assessment class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Closing Level:</label>
+                    <div class="pt-2">
+                        {% render_field form.closing_level class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">CCTS Assistance Required:</label>
+                    <div class="pt-2">
+                        {% render_field form.ccts_assistance_required class="form_input" %}
+                    </div>                         
+                </div>
+                <br>  
+                <div class="w-full">
+                    <label class="font-bold w-full">Customer Assistance Required:</label>
+                    <div class="pt-2">
+                        {% render_field form.customer_assistance_required class="form_input" %}
+                    </div> 
+                <br>                        
+                </div>
+                <div class="w-full">
+                    <label class="font-bold w-full">End Date of Processing:</label>
+                    <div class="pt-2">
+                        {% render_field form.date_processing_end class="form_input" %}
+                    </div>                         
+                </div>
+
+                <br>
+                <div class="flex justify-between">
+                    <input class="h-8 w-64 text-xs font-bold text-indigo-50 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Save"> 
+                    <div class="w-4"></div>
+                    <a href="{% url 'objection-list' %}" class="flex justify-center h-8 w-64 text-xs items-center font-bold text-indigo-50 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">Cancel</a>
+                </div>
+            </form> 
+</div>
+{% endblock content %}

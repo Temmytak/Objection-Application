@@ -26,7 +26,9 @@ from objections.views import (
     objectionassessment_list, objectionassessment_detail, objectionassessment_create, objectionassessment_update,
     closinglevel_list, closinglevel_detail, closinglevel_create, closinglevel_update,
     cctsassistance_list, cctsassistance_detail, cctsassistance_create, cctsassistance_update,
-    customerassistance_list, customerassistance_detail, customerassistance_create, customerassistance_update
+    customerassistance_list, customerassistance_detail, customerassistance_create, customerassistance_update, 
+    objection_create, objection_list, objection_detail, objection_update, objection_pastdue, objection_unassigned, objection_delete, 
+    objection_report_date_submitted
     )
 
 urlpatterns = [
@@ -86,5 +88,14 @@ urlpatterns = [
     path('administrative-tasks/customerassistance/', customerassistance_list.as_view(), name = 'customerassistance-list'),
     path('administrative-tasks/customerassistance/<int:pk>/', customerassistance_detail.as_view(), name = 'customerassistance-detail'),
     path('administrative-tasks/customerassistance/<int:pk>/update/', customerassistance_update.as_view(), name = 'customerassistance-update'),
-    path('administrative-tasks/customerassistance/create/', customerassistance_create.as_view(), name='customerassistance-create'),                 
+    path('administrative-tasks/customerassistance/create/', customerassistance_create.as_view(), name='customerassistance-create'),    
+
+    path('objection/objections-list/', objection_list.as_view(), name = 'objection-list'),
+    path('objection/objections-list/<int:pk>/', objection_detail.as_view(), name = 'objection-detail'), 
+    path('objection/objections-list/<int:pk>/update/', objection_update.as_view(), name = 'objection-update'),       
+    path('objection/create/', objection_create.as_view(), name='objection-create'),  
+    path('objection/past-due-items/', objection_pastdue.as_view(), name = 'objection-pastdue'),      
+    path('objection/unassigned-objections/', objection_unassigned.as_view(), name = 'objection-unassigned'),   
+    path('objection/objections-list/<int:pk>/delete/', objection_delete.as_view(), name='objection-delete'),
+    path('objection/objection-reports/', objection_report_date_submitted, name='objection-report'),
 ]

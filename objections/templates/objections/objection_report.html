@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block pageheader %}
+    <p>Objection Reports</p>
+{% endblock pageheader %}
+
+{% block contentheader %}
+    <p>Download objection report based on date submitted</p>
+{% endblock contentheader %}
+
+{% block content %}
+<div class="w-full">
+    <div class="flex flex-wrap justify-center border-2 border-gray-400 h-12 content-center">
+        <div class="flex w-full justify-center">
+            <form method="POST" class="flex w-full justify-center">
+                {% csrf_token %}
+                <label for="datesubmitted_start" class="font-bold text-gray-500">From:&nbsp&nbsp</label>
+                <input id="al-search" type="date" name="fromdate" id="fromdate"
+                    class="w-18 border-2 border-gray-300 rounded-lg h-8 text-center text-sm" required/>
+                    <div class="w-4"></div>
+                <label for="datesubmitted_end" class="font-bold text-gray-500">To:&nbsp&nbsp</label>
+                <input id="al-search" type="date" name="todate" id="todate"
+                    class="w-18 border-2 border-gray-300 rounded-lg h-8 text-center text-sm" required/>
+                    <div class="w-4"></div>                                   
+                <input class="h-8 w-32 justify-center text-xs text-center text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Download Report" />
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+
+{% endblock content %}

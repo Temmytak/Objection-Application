@@ -11,13 +11,13 @@
 {% block content %}
     <div class="p-6 flex w-full flex-wrap">
         <!--Advert Card-->
-        <div class="flex w-1/3">
+        <div class="flex w-1/5">
             <div class="bg-white border-transparent rounded-lg shadow-xl m-4 w-full">
                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
                     <h5 class="font-bold text-gray-600 text-center">Add Objection</h5>
                 </div>
                 <div class="flex justify-center p-5">
-                    <a href="#">
+                    <a href="{% url 'objection-create' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
@@ -26,13 +26,13 @@
             </div>
         </div>
 
-        <div class="flex w-1/3">
+        <div class="flex w-1/5">
             <div class="bg-white border-transparent rounded-lg shadow-xl m-4 w-full">
                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
                     <h5 class="font-bold text-gray-600 text-center">Past Due Items</h5>
                 </div>
                 <div class="flex justify-center p-5">
-                    <a href="#">                            
+                    <a href="{% url 'objection-pastdue' %}">                            
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -41,7 +41,7 @@
             </div>
         </div>              
 
-        <div class="flex w-1/3">
+        <div class="flex w-1/5">
             <div class="bg-white border-transparent rounded-lg shadow-xl m-4 w-full">
                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
                     <h5 class="font-bold text-gray-600 text-center">My Objections</h5>
@@ -57,13 +57,13 @@
             </div>
         </div>     
 
-        <div class="flex w-1/3">
+        <div class="flex w-1/5">
             <div class="bg-white border-transparent rounded-lg shadow-xl m-4 w-full">
                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
                     <h5 class="font-bold text-gray-600 text-center">Unassigned Objections</h5>
                 </div>
                 <div class="flex justify-center p-5">
-                    <a href="#">                        
+                    <a href="{% url 'objection-unassigned' %}">                        
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                         </svg>
@@ -72,13 +72,13 @@
             </div>
         </div>              
 
-        <div class="flex w-1/3">
+        <div class="flex w-1/5">
             <div class="bg-white border-transparent rounded-lg shadow-xl m-4 w-full">
                 <div class="bg-gradient-to-b from-gray-300 to-gray-100 text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
                     <h5 class="font-bold text-gray-600 text-center">All Objections</h5>
                 </div>
                 <div class="flex justify-center p-5">
-                    <a href="#">                            
+                    <a href="{% url 'objection-list' %}">                            
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                         </svg>

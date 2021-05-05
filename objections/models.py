@@ -25,18 +25,17 @@ class Agent(models.Model):
     user = models.OneToOneField(to = User, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.user.email
+        return self.user.username
 
 
 class ComplaintLanguage(models.Model):
-    name = models.CharField(max_length=10)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=10)
     active = models.BooleanField(default=1, choices = active_choices)
 
     class Meta:
@@ -48,14 +47,13 @@ class ComplaintLanguage(models.Model):
 
 
 class StatusNote(models.Model):
-    name = models.CharField(max_length=50)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     def __str__(self):
@@ -63,14 +61,13 @@ class StatusNote(models.Model):
 
 
 class ReferencedCodeSection(models.Model):
-    name = models.CharField(max_length=500)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=500)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     def __str__(self):
@@ -78,14 +75,13 @@ class ReferencedCodeSection(models.Model):
 
 
 class ObjectionStatus(models.Model):
-    name = models.CharField(max_length=50)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
@@ -97,14 +93,13 @@ class ObjectionStatus(models.Model):
 
 
 class ObjectionAssessment(models.Model):
-    name = models.CharField(max_length=500)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=500)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
@@ -116,14 +111,13 @@ class ObjectionAssessment(models.Model):
 
 
 class ClosingLevel(models.Model):
-    name = models.CharField(max_length=20)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     def __str__(self):
@@ -131,14 +125,13 @@ class ClosingLevel(models.Model):
 
 
 class CCTSAssistanceRequired(models.Model):
-    name = models.CharField(max_length=20)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
@@ -150,14 +143,13 @@ class CCTSAssistanceRequired(models.Model):
 
 
 class CustomerAssistanceRequired(models.Model):
-    name = models.CharField(max_length=5)
 
     active_choices = (
         (True, True),
         (False, False)
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=5)
     active = models.BooleanField(default=1, choices = active_choices)    
 
     class Meta:
@@ -174,10 +166,9 @@ class Objection(models.Model):
     service_provider = models.ForeignKey(to = ServiceProvider, on_delete = models.SET_NULL, null = True, blank = True)    
     agent = models.ForeignKey(to = Agent, on_delete = models.SET_NULL, null = True, blank = True)     
     date_submitted = models.DateTimeField()
-    date_processing_start = models.DateTimeField()   
-    due_date = models.DateTimeField()   
-    date_processing_end = models.DateTimeField()            
-    status = models.CharField(max_length=10)   
+    date_processing_start = models.DateTimeField(null = True, blank = True)   
+    due_date = models.DateTimeField(null = True, blank = True)   
+    date_processing_end = models.DateTimeField(null = True, blank = True)            
     status_note = models.ForeignKey(to = StatusNote, on_delete = models.SET_NULL, null = True, blank = True) 
     psp_objection_referenced_code_section = models.ForeignKey(to = ReferencedCodeSection, on_delete = models.SET_NULL, null = True, blank = True, related_name='ReferencedCodeSectionPSP')    
     ccts_determination_referenced_code_section = models.ForeignKey(to = ReferencedCodeSection, on_delete = models.SET_NULL, null = True, blank = True, related_name='ReferencedCodeSectionCCTS')        
@@ -188,4 +179,4 @@ class Objection(models.Model):
     customer_assistance_required = models.ForeignKey(to = CustomerAssistanceRequired, on_delete = models.SET_NULL, null = True, blank = True) 
 
     def __str__(self):
-        return self.name
+        return self.complaint_id
