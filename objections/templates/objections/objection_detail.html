@@ -17,10 +17,12 @@
                         <a href="{% url 'objection-update' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
                     </div>
                     <div class="w-8"></div>
+                    {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}
                     <div class="pb-4">
                         <a href="{% url 'objection-delete' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Delete</a>
                     </div>
-                    <div class="w-8"></div>                    
+                    <div class="w-8"></div>
+                    {% endif %}           
                     <div class="pb-4">                
                         <a href="{% url 'objection-list' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
                     </div>                          
@@ -163,10 +165,12 @@
                         <a href="{% url 'objection-update' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
                     </div>
                     <div class="w-8"></div>
+                    {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}
                     <div class="pt-4">
                         <a href="{% url 'objection-delete' objection.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Delete</a>
                     </div>
-                    <div class="w-8"></div>                    
+                    <div class="w-8"></div> 
+                    {% endif %}                   
                     <div class="pt-4">                
                         <a href="{% url 'objection-list' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
                     </div>                          
