@@ -62,7 +62,7 @@
         <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-72">
 
             <div class="md:mt-12 md:w-60 pt-16 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                <ul class="list-reset flex fixed flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
                     <li class="mr-3 flex-1">
                         <a href="{% url 'objection-create' %}" class="flex block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,13 +135,13 @@
 
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
-            <div class="bg-gray-800 pt-3">
+            <div class="bg-gray-800 pt-3 fixed w-full">
                 <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
                     <h3 class="font-bold pl-2 text-sm m-4">{% block pageheader %} {% endblock pageheader %}</h3>
                 </div>
             </div>
 
-            <div>
+            <div class="pt-24">
 
                 <div class="p-6 flex flex-wrap">
                     <!--Advert Card-->
