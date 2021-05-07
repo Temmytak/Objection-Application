@@ -113,29 +113,6 @@ class ObjectionCreateForm(forms.ModelForm):
             'date_processing_end',            
         )
 
-
-class ObjectionCreateForm(forms.ModelForm):
-    class Meta:
-        model = Objection
-        fields = (
-            'complaint_id',
-            'complaint_language',
-            'service_provider',
-            'agent',
-            'date_submitted',
-            'date_processing_start',
-            'due_date',
-            'status_note',
-            'psp_objection_referenced_code_section',
-            'ccts_determination_referenced_code_section',
-            'objection_status',
-            'ccts_assessment',
-            'closing_level',
-            'ccts_assistance_required',
-            'customer_assistance_required',
-            'date_processing_end',            
-        )
-
         widgets = {
             'date_submitted': forms.DateTimeInput(format = ('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),
             'date_processing_start': forms.DateTimeInput(format = ('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),

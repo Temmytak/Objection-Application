@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from objections.views import (
-    administrative_tasks, home_page,
+    administrative_tasks, home_page, login_page, logout_user,
     serviceprovider_list, serviceprovider_detail, serviceprovider_update, serviceprovider_create, 
     agent_list, agent_detail, agent_create, 
     language_list, language_detail, language_create, language_update,
@@ -28,11 +28,15 @@ from objections.views import (
     cctsassistance_list, cctsassistance_detail, cctsassistance_create, cctsassistance_update,
     customerassistance_list, customerassistance_detail, customerassistance_create, customerassistance_update, 
     objection_create, objection_list, objection_detail, objection_update, objection_pastdue, objection_unassigned, objection_delete, 
-    objection_report_date_submitted
+    objection_report_date_submitted, objection_myobjections
     )
 
 urlpatterns = [
     path('admin/', admin.site.urls),    
+
+    path('login/', login_page, name = 'login-page'),  
+
+    path('logout/', logout_user, name = 'logout-user'), 
 
     path('', home_page, name = 'home-page'),
 
@@ -97,5 +101,6 @@ urlpatterns = [
     path('objection/past-due-items/', objection_pastdue.as_view(), name = 'objection-pastdue'),      
     path('objection/unassigned-objections/', objection_unassigned.as_view(), name = 'objection-unassigned'),   
     path('objection/objections-list/<int:pk>/delete/', objection_delete.as_view(), name='objection-delete'),
-    path('objection/objection-reports/', objection_report_date_submitted, name='objection-report'),
+    path('objection/objections-reports/', objection_report_date_submitted, name='objection-report'),
+    path('objection/objections-myobjections/', objection_myobjections.as_view(), name='objection-myobjections'),
 ]

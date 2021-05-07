@@ -7,7 +7,7 @@ from .models import (
 
 # Register your models here.
 
-admin.site.register(User)
+# admin.site.register(User)
 admin.site.register(ServiceProvider)
 admin.site.register(Agent)
 admin.site.register(ComplaintLanguage)

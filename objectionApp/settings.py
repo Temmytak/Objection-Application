@@ -133,4 +133,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'objections.User'
+# AUTH_USER_MODEL = 'objections.User'
+
+LOGIN_REDIRECT_URL = "home-page"
+LOGIN_URL = "login-page"

@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block pageheader %}
-    <p>View Objections</p>
+    <p>View My Objections</p>
 {% endblock pageheader %}
 
 {% block contentheader %}
-    <p>list of all objections</p>
+    <p>list of all objections currently assigned to me</p>
 {% endblock contentheader %}
 
 {% block content %}
 <div class="w-full">
     <div class="flex flex-wrap justify-center border-2 border-gray-400 h-12 content-center">
         <div class="flex w-full justify-center">
-            <form action="{% url 'objection-list' %}" method="get" class="flex w-full justify-center">
+            <form action="{% url 'objection-myobjections' %}" method="get" class="flex w-full justify-center">
                 <input id="al-search" type="text"
                     name="complaint_id" value="{{ request.GET.complaint_id }}"
                     class="w-1/3 border-2 border-gray-300 rounded-lg h-8 text-center text-sm" placeholder="Complaint ID" />
@@ -84,7 +84,7 @@
                 </div>
                 <div class="w-1/3 pt-4">
                     {% if page_obj.has_previous %}
-                        <a href="/objection/objections-list?page={{ page_obj.previous_page_number }}" class="font-bold text-gray-500">Previous</a>
+                        <a href="/objection/objections-myobjections?page={{ page_obj.previous_page_number }}" class="font-bold text-gray-500">Previous</a>
                     {% endif %}
                 </div>
                 <div class="w-1/3 pt-4 font-bold text-gray-500">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="w-1/3 pt-4">                
                     {% if page_obj.has_next %}
-                        <a href="/objection/objections-list?page={{ page_obj.next_page_number }}" class="font-bold text-gray-500">Next</a>
+                        <a href="/objection/objections-myobjections?page={{ page_obj.next_page_number }}" class="font-bold text-gray-500">Next</a>
                     {% endif %}
                 </div>                    
             </div>

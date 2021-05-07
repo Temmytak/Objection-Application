@@ -45,15 +45,9 @@
                 <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                     <li class="flex-1 md:flex-none md:mr-3">
                         <div class="relative inline-block">
-                            <button onclick="toggleDD('myDropdown')" class="drop-button text-white focus:outline-none"> Hi, User <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
-                            <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                <input type="text" class="drop-search p-2 text-gray-600" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
-                                <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user fa-fw"></i> Profile</a>
-                                <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a>
-                                <div class="border border-gray-800"></div>
-                                <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
-                            </div>
+                            <span class="text-white focus:outline-none">Hello, {{ request.user }}</span>
+                            <span>&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                            <span class="hover:text-white text-gray-400 underline"><a href="{% url 'logout-user' %}">Logout</a></span>
                         </div>
                     </li>
                 </ul>
@@ -84,7 +78,7 @@
                         </a>
                     </li>
                     <li class="mr-3 flex-1">
-                        <a href="#" class="flex block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-600">
+                        <a href="{% url 'objection-myobjections' %}" class="flex block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
@@ -105,13 +99,16 @@
                             </svg><span class="pb-1 pl-2 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">All Objections</span>
                         </a>
                     </li>
+                    {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}
                     <li class="mr-3 flex-1">
                         <a href="{% url 'objection-report' %}" class="flex block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-100">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg><span class="pb-1 pl-2 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Reports</span>
                         </a>
-                    </li>                    
+                    </li>  
+                    {% endif %}      
+                    {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}            
                     <li class="mr-3 flex-1">
                         <a href="{% url 'administrative-tasks' %}" class="flex block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,14 +116,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg><span class="pb-1 pl-2 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Administrative Tasks</span>
                         </a>
-                    </li>  
+                    </li> 
+                    {% endif %}  
+                    {% if request.user.is_staff %} 
                     <li class="mr-3 flex-1">
                         <a href="/admin" class="flex block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-indigo-800">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg><span class="pb-1 pl-2 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Admin Panel</span>
                         </a>
-                    </li>                                    
+                    </li> 
+                    {% endif %}                                    
                 </ul>
             </div>
 
@@ -166,41 +166,6 @@
     </div>
 
 
-
-
-    <script>
-        /*Toggle dropdown list*/
-        function toggleDD(myDropMenu) {
-            document.getElementById(myDropMenu).classList.toggle("invisible");
-        }
-        /*Filter dropdown options*/
-        function filterDD(myDropMenu, myDropMenuSearch) {
-            var input, filter, ul, li, a, i;
-            input = document.getElementById(myDropMenuSearch);
-            filter = input.value.toUpperCase();
-            div = document.getElementById(myDropMenu);
-            a = div.getElementsByTagName("a");
-            for (i = 0; i < a.length; i++) {
-                if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    a[i].style.display = "";
-                } else {
-                    a[i].style.display = "none";
-                }
-            }
-        }
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
-                var dropdowns = document.getElementsByClassName("dropdownlist");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (!openDropdown.classList.contains('invisible')) {
-                        openDropdown.classList.add('invisible');
-                    }
-                }
-            }
-        }
-    </script>
 
     <script>
         $(document).ready( function () {

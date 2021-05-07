@@ -53,25 +53,25 @@
                 {% for objection in objections %}
                 <tr class="bg-white border-4 border-gray-200">
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.complaint_id }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.complaint_id|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.service_provider }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.service_provider|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.agent }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.agent|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|default_if_none:"&nbsp;" }}</a></span>
                     </td>                                                                                                    
                 </tr>
                 {% endfor %}

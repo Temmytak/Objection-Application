@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.http import HttpResponse
@@ -16,17 +16,45 @@ import datetime
 from datetime import date  
 from excel_response import ExcelResponse
 from django.db.models import F
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .decorators import unauthenticater_user, allowed_users
 
 # Create your views here.
+@ login_required(login_url = 'login-page')
 def home_page(request):
     return render(request, "objections/home_page.html")
 
+@ unauthenticater_user
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
+        user = authenticate(request, username = username, password = password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home-page')
+        else:
+            messages.info(request, 'username or password is incorrect')
+
+    return render(request, "objections/login_page.html")
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login-page')
+
+
+@ login_required()
+@ allowed_users(allowed_roles=['supervisor','superuser'])
 def administrative_tasks(request):
     return render(request, "objections/administrative_tasks.html")
 
 
-class serviceprovider_list(ListView):
+class serviceprovider_list(LoginRequiredMixin, ListView):
     template_name = 'objections/serviceprovider_list.html'
     model = ServiceProvider
     context_object_name = 'serviceproviders'
@@ -46,13 +74,13 @@ class serviceprovider_list(ListView):
         return serviveprovider_list
 
 
-class serviceprovider_detail(DetailView):
+class serviceprovider_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/serviceprovider_detail.html'
     model = ServiceProvider
     context_object_name = 'serviceprovider'
 
 
-class serviceprovider_update(UpdateView):
+class serviceprovider_update(LoginRequiredMixin, UpdateView):
     model = ServiceProvider
     context_object_name = 'serviceprovider'
     template_name = 'objections/serviceprovider_update.html'
@@ -63,7 +91,7 @@ class serviceprovider_update(UpdateView):
     success_url = reverse_lazy("service-provider")
 
 
-#class serviceprovider_delete(DeleteView):
+#class serviceprovider_delete(LoginRequiredMixin, DeleteView):
 #    model = ServiceProvider
 #    context_object_name = 'serviceprovider'
 #    template_name = 'objections/serviceprovider_delete.html'
@@ -71,14 +99,14 @@ class serviceprovider_update(UpdateView):
 #    success_url = reverse_lazy("service-provider")
 
 
-class serviceprovider_create(CreateView):
+class serviceprovider_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/serviceprovider_create.html'
     form_class = ServiceProviderForm
 
     success_url = reverse_lazy("service-provider")
 
 
-class agent_create(CreateView):
+class agent_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/agent_create.html'
     form_class = AgentForm
     success_url = reverse_lazy("agent-home")
@@ -89,7 +117,7 @@ class agent_create(CreateView):
         return form    
 
 
-#class agent_delete(DeleteView):
+#class agent_delete(LoginRequiredMixin, DeleteView):
 #    model = Agent
 #    context_object_name = 'agents'
 #    template_name = 'objections/agent_delete.html'
@@ -97,13 +125,13 @@ class agent_create(CreateView):
 #    success_url = reverse_lazy("agent-home")    
 
 
-class agent_detail(DetailView):
+class agent_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/agent_detail.html'
     model = Agent
     context_object_name = 'agent'
 
 
-class agent_list(ListView):
+class agent_list(LoginRequiredMixin, ListView):
     template_name = 'objections/agent_list.html'
     model = Agent
     context_object_name = 'agents'
@@ -123,7 +151,7 @@ class agent_list(ListView):
         return agent_list
 
 
-class language_list(ListView):
+class language_list(LoginRequiredMixin, ListView):
     template_name = 'objections/language_list.html'
     model = ComplaintLanguage
     context_object_name = 'languages'
@@ -143,13 +171,13 @@ class language_list(ListView):
         return language_list
 
 
-class language_detail(DetailView):
+class language_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/language_detail.html'
     model = ComplaintLanguage
     context_object_name = 'language'
 
 
-class language_update(UpdateView):
+class language_update(LoginRequiredMixin, UpdateView):
     model = ComplaintLanguage
     context_object_name = 'language'
     template_name = 'objections/language_update.html'
@@ -160,14 +188,14 @@ class language_update(UpdateView):
     success_url = reverse_lazy("language-list")
 
 
-class language_create(CreateView):
+class language_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/language_create.html'
     form_class = LanguageForm
 
     success_url = reverse_lazy("language-list")
 
 
-class statusnote_list(ListView):
+class statusnote_list(LoginRequiredMixin, ListView):
     template_name = 'objections/statusnote_list.html'
     model = StatusNote
     context_object_name = 'statusnotes'
@@ -187,13 +215,13 @@ class statusnote_list(ListView):
         return statusnote_list
 
 
-class statusnote_detail(DetailView):
+class statusnote_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/statusnote_detail.html'
     model = StatusNote
     context_object_name = 'statusnote'
 
 
-class statusnote_update(UpdateView):
+class statusnote_update(LoginRequiredMixin, UpdateView):
     model = StatusNote
     context_object_name = 'statusnote'
     template_name = 'objections/statusnote_update.html'
@@ -204,14 +232,14 @@ class statusnote_update(UpdateView):
     success_url = reverse_lazy("statusnote-list")
 
 
-class statusnote_create(CreateView):
+class statusnote_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/statusnote_create.html'
     form_class = StatusNoteForm
 
     success_url = reverse_lazy("statusnote-list")
 
 
-class refcode_list(ListView):
+class refcode_list(LoginRequiredMixin, ListView):
     template_name = 'objections/refcode_list.html'
     model = ReferencedCodeSection
     context_object_name = 'refcodes'
@@ -231,13 +259,13 @@ class refcode_list(ListView):
         return refcode_list
 
 
-class refcode_detail(DetailView):
+class refcode_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/refcode_detail.html'
     model = ReferencedCodeSection
     context_object_name = 'refcode'
 
 
-class refcode_update(UpdateView):
+class refcode_update(LoginRequiredMixin, UpdateView):
     model = ReferencedCodeSection
     context_object_name = 'refcode'
     template_name = 'objections/refcode_update.html'
@@ -248,14 +276,14 @@ class refcode_update(UpdateView):
     success_url = reverse_lazy("refcode-list")
 
 
-class refcode_create(CreateView):
+class refcode_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/refcode_create.html'
     form_class = RefCodeForm
 
     success_url = reverse_lazy("refcode-list")
 
 
-class objectionstatus_list(ListView):
+class objectionstatus_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objectionstatus_list.html'
     model = ObjectionStatus
     context_object_name = 'objectionstatus'
@@ -275,13 +303,13 @@ class objectionstatus_list(ListView):
         return objectionstatus_list
 
 
-class objectionstatus_detail(DetailView):
+class objectionstatus_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/objectionstatus_detail.html'
     model = ObjectionStatus
     context_object_name = 'objectionstatus'
 
 
-class objectionstatus_update(UpdateView):
+class objectionstatus_update(LoginRequiredMixin, UpdateView):
     model = ObjectionStatus
     context_object_name = 'objectionstatus'
     template_name = 'objections/objectionstatus_update.html'
@@ -292,14 +320,14 @@ class objectionstatus_update(UpdateView):
     success_url = reverse_lazy("objectionstatus-list")
 
 
-class objectionstatus_create(CreateView):
+class objectionstatus_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/objectionstatus_create.html'
     form_class = ObjectionStatusForm
 
     success_url = reverse_lazy("objectionstatus-list")
 
 
-class objectionassessment_list(ListView):
+class objectionassessment_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objectionassessment_list.html'
     model = ObjectionAssessment
     context_object_name = 'objectionassessments'
@@ -319,13 +347,13 @@ class objectionassessment_list(ListView):
         return objectionassessment_list
 
 
-class objectionassessment_detail(DetailView):
+class objectionassessment_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/objectionassessment_detail.html'
     model = ObjectionAssessment
     context_object_name = 'objectionassessment'
 
 
-class objectionassessment_update(UpdateView):
+class objectionassessment_update(LoginRequiredMixin, UpdateView):
     model = ObjectionAssessment
     context_object_name = 'objectionassessment'
     template_name = 'objections/objectionassessment_update.html'
@@ -336,14 +364,14 @@ class objectionassessment_update(UpdateView):
     success_url = reverse_lazy("objectionassessment-list")
 
 
-class objectionassessment_create(CreateView):
+class objectionassessment_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/objectionassessment_create.html'
     form_class = ObjectionAssessmentForm
 
     success_url = reverse_lazy("objectionassessment-list")
 
 
-class closinglevel_list(ListView):
+class closinglevel_list(LoginRequiredMixin, ListView):
     template_name = 'objections/closinglevel_list.html'
     model = ClosingLevel
     context_object_name = 'closinglevels'
@@ -363,13 +391,13 @@ class closinglevel_list(ListView):
         return closinglevel_list
 
 
-class closinglevel_detail(DetailView):
+class closinglevel_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/closinglevel_detail.html'
     model = ClosingLevel
     context_object_name = 'closinglevel'
 
 
-class closinglevel_update(UpdateView):
+class closinglevel_update(LoginRequiredMixin, UpdateView):
     model = ClosingLevel
     context_object_name = 'closinglevel'
     template_name = 'objections/closinglevel_update.html'
@@ -380,14 +408,14 @@ class closinglevel_update(UpdateView):
     success_url = reverse_lazy("closinglevel-list")
 
 
-class closinglevel_create(CreateView):
+class closinglevel_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/closinglevel_create.html'
     form_class = ClosingLevelForm
 
     success_url = reverse_lazy("closinglevel-list")
 
 
-class cctsassistance_list(ListView):
+class cctsassistance_list(LoginRequiredMixin, ListView):
     template_name = 'objections/cctsassistance_list.html'
     model = CCTSAssistanceRequired
     context_object_name = 'cctsassistances'
@@ -407,13 +435,13 @@ class cctsassistance_list(ListView):
         return cctsassistance_list
 
 
-class cctsassistance_detail(DetailView):
+class cctsassistance_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/cctsassistance_detail.html'
     model = CCTSAssistanceRequired
     context_object_name = 'cctsassistance'
 
 
-class cctsassistance_update(UpdateView):
+class cctsassistance_update(LoginRequiredMixin, UpdateView):
     model = CCTSAssistanceRequired
     context_object_name = 'cctsassistance'
     template_name = 'objections/cctsassistance_update.html'
@@ -424,14 +452,14 @@ class cctsassistance_update(UpdateView):
     success_url = reverse_lazy("cctsassistance-list")
 
 
-class cctsassistance_create(CreateView):
+class cctsassistance_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/cctsassistance_create.html'
     form_class = CctsAssistanceForm
 
     success_url = reverse_lazy("cctsassistance-list")
 
 
-class customerassistance_list(ListView):
+class customerassistance_list(LoginRequiredMixin, ListView):
     template_name = 'objections/customerassistance_list.html'
     model = CustomerAssistanceRequired
     context_object_name = 'customerassistances'
@@ -451,13 +479,13 @@ class customerassistance_list(ListView):
         return customerassistance_list
 
 
-class customerassistance_detail(DetailView):
+class customerassistance_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/customerassistance_detail.html'
     model = CustomerAssistanceRequired
     context_object_name = 'customerassistance'
 
 
-class customerassistance_update(UpdateView):
+class customerassistance_update(LoginRequiredMixin, UpdateView):
     model = CustomerAssistanceRequired
     context_object_name = 'customerassistance'
     template_name = 'objections/customerassistance_update.html'
@@ -468,14 +496,14 @@ class customerassistance_update(UpdateView):
     success_url = reverse_lazy("customerassistance-list")
 
 
-class customerassistance_create(CreateView):
+class customerassistance_create(LoginRequiredMixin, CreateView):
     template_name = 'objections/customerassistance_create.html'
     form_class = CustomerAssistanceForm
 
     success_url = reverse_lazy("customerassistance-list")
 
 
-class objection_create(SuccessMessageMixin, CreateView):
+class objection_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/objection_create.html'
     form_class = ObjectionCreateForm
     success_message = "Objection was added successfully"
@@ -498,7 +526,7 @@ class objection_create(SuccessMessageMixin, CreateView):
         return form
 
 
-class objection_list(ListView):
+class objection_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_list.html'
     model = Objection
     context_object_name = 'objections'
@@ -528,13 +556,13 @@ class objection_list(ListView):
         return objection_list
 
 
-class objection_detail(DetailView):
+class objection_detail(LoginRequiredMixin, DetailView):
     template_name = 'objections/objection_detail.html'
     model = Objection
     context_object_name = 'objection'
 
 
-class objection_update(SuccessMessageMixin, UpdateView):
+class objection_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Objection
     context_object_name = 'objection'
     form_class = ObjectionCreateForm
@@ -558,7 +586,7 @@ class objection_update(SuccessMessageMixin, UpdateView):
         return form    
 
 
-class objection_pastdue(ListView):
+class objection_pastdue(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_pastdue.html'
     model = Objection
     context_object_name = 'objections'
@@ -583,17 +611,19 @@ class objection_pastdue(ListView):
         if a:
             objection_list = Objection.objects.filter(
                 due_date__lt =  today_min,
+                date_processing_end__isnull = True,
                 name__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
-                due_date__lt =  today_min
+                due_date__lt =  today_min,
+                date_processing_end__isnull = True
                 ).order_by('-date_submitted')
         return objection_list
 
 
 
-class objection_unassigned(ListView):
+class objection_unassigned(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_unassigned.html'
     model = Objection
     context_object_name = 'objections'
@@ -626,7 +656,7 @@ class objection_unassigned(ListView):
         return objection_list
 
      
-class objection_delete(DeleteView):
+class objection_delete(LoginRequiredMixin, DeleteView):
     model = Objection
     context_object_name = 'objection'
     template_name = 'objections/objection_delete.html'
@@ -638,6 +668,8 @@ class objection_delete(DeleteView):
         return super(objection_delete, self).delete(request, *args, **kwargs)
 
 
+@ login_required(login_url = 'login-page')
+@ allowed_users(allowed_roles=['supervisor','superuser'])
 def objection_report_date_submitted(request):
     if request.method == "POST":
         fromdate = request.POST.get('fromdate')
@@ -647,7 +679,7 @@ def objection_report_date_submitted(request):
         else:
             reportresult = Objection.objects.filter(date_submitted__gte = fromdate, date_submitted__lte = todate).values(
                 'complaint_id',
-                'complaint_language'
+                'complaint_language',
                 'service_provider__name',
                 'agent__user__username',
                 'date_submitted',
@@ -681,7 +713,7 @@ def objection_report_date_submitted(request):
                     ProcessingEndDate=F('date_processing_end') 
                     ).values(
                         'ComplaintID',
-                        'ComplaintLanguage'
+                        'ComplaintLanguage',
                         'ServiceProvider',
                         'Agent',
                         'DateSubmitted',
@@ -704,3 +736,36 @@ def objection_report_date_submitted(request):
                 )
     else:
         return render(request, 'objections/objection_report.html')
+
+
+class objection_myobjections(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_myobjections.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                agent__user__username = self.request.user.username,
+                name__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                agent__user__username = self.request.user.username
+                ).order_by('-date_submitted')
+        return objection_list
