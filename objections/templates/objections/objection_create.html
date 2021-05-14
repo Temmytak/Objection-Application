@@ -14,8 +14,9 @@
             <form method="post" class="w-full"> 
                 {% csrf_token %} 
 
+                <p class="text-red-500"><i>Fields marked with an asterisk (*) are required</i></p><br>
                 <div class="w-full">
-                    <label class="font-bold w-full">IMS Complaint ID:</label>
+                    <label class="font-bold w-full">IMS Complaint ID: <span class="text-red-500">*</span></label>
                     <div class="pt-2">
                         {% render_field form.complaint_id class="form_input" %}
                     </div>                         
@@ -43,7 +44,7 @@
                 </div>
                 <br>   
                 <div class="w-full">
-                    <label class="font-bold w-full">Date Submitted:</label>
+                    <label class="font-bold w-full">Date Submitted: <span class="text-red-500">*</span></label>
                     <div class="pt-2">
                         {% render_field form.date_submitted class="form_input" %}
                     </div>                         

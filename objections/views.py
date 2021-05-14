@@ -80,10 +80,11 @@ class serviceprovider_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'serviceprovider'
 
 
-class serviceprovider_update(LoginRequiredMixin, UpdateView):
+class serviceprovider_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ServiceProvider
     context_object_name = 'serviceprovider'
     template_name = 'objections/serviceprovider_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -99,15 +100,17 @@ class serviceprovider_update(LoginRequiredMixin, UpdateView):
 #    success_url = reverse_lazy("service-provider")
 
 
-class serviceprovider_create(LoginRequiredMixin, CreateView):
+class serviceprovider_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/serviceprovider_create.html'
+    success_message = "Record added successfully"
     form_class = ServiceProviderForm
 
     success_url = reverse_lazy("service-provider")
 
 
-class agent_create(LoginRequiredMixin, CreateView):
+class agent_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/agent_create.html'
+    success_message = "Record added successfully"
     form_class = AgentForm
     success_url = reverse_lazy("agent-home")
 
@@ -177,10 +180,11 @@ class language_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'language'
 
 
-class language_update(LoginRequiredMixin, UpdateView):
+class language_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ComplaintLanguage
     context_object_name = 'language'
     template_name = 'objections/language_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -188,8 +192,9 @@ class language_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("language-list")
 
 
-class language_create(LoginRequiredMixin, CreateView):
+class language_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/language_create.html'
+    success_message = "Record added successfully"
     form_class = LanguageForm
 
     success_url = reverse_lazy("language-list")
@@ -221,10 +226,11 @@ class statusnote_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'statusnote'
 
 
-class statusnote_update(LoginRequiredMixin, UpdateView):
+class statusnote_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = StatusNote
     context_object_name = 'statusnote'
     template_name = 'objections/statusnote_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -232,8 +238,9 @@ class statusnote_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("statusnote-list")
 
 
-class statusnote_create(LoginRequiredMixin, CreateView):
+class statusnote_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/statusnote_create.html'
+    success_message = "Record added successfully"
     form_class = StatusNoteForm
 
     success_url = reverse_lazy("statusnote-list")
@@ -265,10 +272,11 @@ class refcode_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'refcode'
 
 
-class refcode_update(LoginRequiredMixin, UpdateView):
+class refcode_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ReferencedCodeSection
     context_object_name = 'refcode'
     template_name = 'objections/refcode_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -276,8 +284,9 @@ class refcode_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("refcode-list")
 
 
-class refcode_create(LoginRequiredMixin, CreateView):
+class refcode_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/refcode_create.html'
+    success_message = "Record added successfully"
     form_class = RefCodeForm
 
     success_url = reverse_lazy("refcode-list")
@@ -309,10 +318,11 @@ class objectionstatus_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'objectionstatus'
 
 
-class objectionstatus_update(LoginRequiredMixin, UpdateView):
+class objectionstatus_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ObjectionStatus
     context_object_name = 'objectionstatus'
     template_name = 'objections/objectionstatus_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -320,8 +330,9 @@ class objectionstatus_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("objectionstatus-list")
 
 
-class objectionstatus_create(LoginRequiredMixin, CreateView):
+class objectionstatus_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/objectionstatus_create.html'
+    success_message = "Record added successfully"
     form_class = ObjectionStatusForm
 
     success_url = reverse_lazy("objectionstatus-list")
@@ -353,10 +364,11 @@ class objectionassessment_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'objectionassessment'
 
 
-class objectionassessment_update(LoginRequiredMixin, UpdateView):
+class objectionassessment_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ObjectionAssessment
     context_object_name = 'objectionassessment'
     template_name = 'objections/objectionassessment_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -364,8 +376,9 @@ class objectionassessment_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("objectionassessment-list")
 
 
-class objectionassessment_create(LoginRequiredMixin, CreateView):
+class objectionassessment_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/objectionassessment_create.html'
+    success_message = "Record added successfully"
     form_class = ObjectionAssessmentForm
 
     success_url = reverse_lazy("objectionassessment-list")
@@ -397,10 +410,11 @@ class closinglevel_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'closinglevel'
 
 
-class closinglevel_update(LoginRequiredMixin, UpdateView):
+class closinglevel_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = ClosingLevel
     context_object_name = 'closinglevel'
     template_name = 'objections/closinglevel_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -408,8 +422,9 @@ class closinglevel_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("closinglevel-list")
 
 
-class closinglevel_create(LoginRequiredMixin, CreateView):
+class closinglevel_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/closinglevel_create.html'
+    success_message = "Record added successfully"
     form_class = ClosingLevelForm
 
     success_url = reverse_lazy("closinglevel-list")
@@ -441,10 +456,11 @@ class cctsassistance_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'cctsassistance'
 
 
-class cctsassistance_update(LoginRequiredMixin, UpdateView):
+class cctsassistance_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = CCTSAssistanceRequired
     context_object_name = 'cctsassistance'
     template_name = 'objections/cctsassistance_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -452,8 +468,9 @@ class cctsassistance_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("cctsassistance-list")
 
 
-class cctsassistance_create(LoginRequiredMixin, CreateView):
+class cctsassistance_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/cctsassistance_create.html'
+    success_message = "Record added successfully"
     form_class = CctsAssistanceForm
 
     success_url = reverse_lazy("cctsassistance-list")
@@ -485,10 +502,11 @@ class customerassistance_detail(LoginRequiredMixin, DetailView):
     context_object_name = 'customerassistance'
 
 
-class customerassistance_update(LoginRequiredMixin, UpdateView):
+class customerassistance_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = CustomerAssistanceRequired
     context_object_name = 'customerassistance'
     template_name = 'objections/customerassistance_update.html'
+    success_message = "Record updated successfully"
     fields = [
         "name",
         "active"
@@ -496,8 +514,9 @@ class customerassistance_update(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("customerassistance-list")
 
 
-class customerassistance_create(LoginRequiredMixin, CreateView):
+class customerassistance_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'objections/customerassistance_create.html'
+    success_message = "Record added successfully"
     form_class = CustomerAssistanceForm
 
     success_url = reverse_lazy("customerassistance-list")
@@ -679,7 +698,7 @@ def objection_report_date_submitted(request):
         else:
             reportresult = Objection.objects.filter(date_submitted__gte = fromdate, date_submitted__lte = todate).values(
                 'complaint_id',
-                'complaint_language',
+                'complaint_language__name',
                 'service_provider__name',
                 'agent__user__username',
                 'date_submitted',
@@ -696,7 +715,7 @@ def objection_report_date_submitted(request):
                 'date_processing_end'
                 ).annotate(
                     ComplaintID=F('complaint_id'),   
-                    ComplaintLanguage=F('complaint_language'),                    
+                    ComplaintLanguage=F('complaint_language__name'),                    
                     ServiceProvider=F('service_provider__name'), 
                     Agent=F('agent__user__username'), 
                     DateSubmitted=F('date_submitted'), 
