@@ -1,6 +1,8 @@
 from django.db import models
 #from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from auditlog.registry import auditlog
+from auditlog.models import AuditlogHistoryField
 
 # Create your models here.
 
@@ -178,6 +180,21 @@ class Objection(models.Model):
     closing_level = models.ForeignKey(to = ClosingLevel, on_delete = models.SET_NULL, null = True, blank = True)         
     ccts_assistance_required = models.ForeignKey(to = CCTSAssistanceRequired, on_delete = models.SET_NULL, null = True, blank = True)  
     customer_assistance_required = models.ForeignKey(to = CustomerAssistanceRequired, on_delete = models.SET_NULL, null = True, blank = True) 
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return self.complaint_id
+
+
+auditlog.register(Objection)
+auditlog.register(User)
+auditlog.register(Agent)
+auditlog.register(ComplaintLanguage)
+auditlog.register(ServiceProvider)
+auditlog.register(StatusNote)
+auditlog.register(ReferencedCodeSection)
+auditlog.register(ObjectionStatus)
+auditlog.register(ObjectionAssessment)
+auditlog.register(ClosingLevel)
+auditlog.register(CCTSAssistanceRequired)
+auditlog.register(CustomerAssistanceRequired)

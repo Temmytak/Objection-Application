@@ -16,7 +16,7 @@
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> <!--Replace with your tailwind.css once created-->
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/> 
     <link rel="stylesheet" href="{% static "css/custom.css" %}"/> 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
@@ -24,7 +24,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
 
 </head>
-
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
 
@@ -58,69 +57,10 @@
                     </div>
                     <button type="submit"
                         class="w-full py-2 rounded bg-blue-800 text-gray-100 focus:outline-none">Sign in</button>
+                    <p class="pt-4"><i>Forgot Password? Click <span class="font-bold underline"><a href="{% url 'reset_password' %}">Here</a></span><i></p>
+                </div>
             </form>
     </div>
-
-    <script>
-        /*Toggle dropdown list*/
-        function toggleDD(myDropMenu) {
-            document.getElementById(myDropMenu).classList.toggle("invisible");
-        }
-        /*Filter dropdown options*/
-        function filterDD(myDropMenu, myDropMenuSearch) {
-            var input, filter, ul, li, a, i;
-            input = document.getElementById(myDropMenuSearch);
-            filter = input.value.toUpperCase();
-            div = document.getElementById(myDropMenu);
-            a = div.getElementsByTagName("a");
-            for (i = 0; i < a.length; i++) {
-                if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    a[i].style.display = "";
-                } else {
-                    a[i].style.display = "none";
-                }
-            }
-        }
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
-                var dropdowns = document.getElementsByClassName("dropdownlist");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (!openDropdown.classList.contains('invisible')) {
-                        openDropdown.classList.add('invisible');
-                    }
-                }
-            }
-        }
-    </script>
-
-    <script>
-        $(document).ready( function () {
-            $('#psp').DataTable(
-                {"paging": false,
-                "bFilter": false}
-                );
-        } );
-    </script>
-
-    <script>
-        $(document).ready( function () {
-            $('#obj').DataTable(
-                {"paging": false,
-                "bFilter": false,
-                "order": [[ 4, "desc" ]]}
-                );
-        } );
-    </script>    
-
-    <script>
-        setTimeout(function(){
-            if ($('#msg').length > 0) {
-                $('#msg').remove();
-            }
-        }, 2000)
-    </script>
 
 </body>
 

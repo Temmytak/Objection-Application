@@ -568,7 +568,7 @@ class objection_list(LoginRequiredMixin, ListView):
             a = None
         if a:
             objection_list = Objection.objects.filter(
-                name__icontains=a
+                complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.all().order_by('-date_submitted')
@@ -631,7 +631,7 @@ class objection_pastdue(LoginRequiredMixin, ListView):
             objection_list = Objection.objects.filter(
                 due_date__lt =  today_min,
                 date_processing_end__isnull = True,
-                name__icontains=a
+                complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
@@ -666,7 +666,7 @@ class objection_unassigned(LoginRequiredMixin, ListView):
         if a:
             objection_list = Objection.objects.filter(
                 agent__isnull = True,
-                name__icontains=a
+                complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
@@ -781,7 +781,7 @@ class objection_myobjections(LoginRequiredMixin, ListView):
         if a:
             objection_list = Objection.objects.filter(
                 agent__user__username = self.request.user.username,
-                name__icontains=a
+                complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
