@@ -30,70 +30,56 @@
                 <div class="w-full">
                     <label class="font-bold w-full">IMS Complaint ID:</label>
                     <div class="pt-2">
-                        <input readonly id="compid" class="w-full border-2 border-gray-200 rounded-md" name="compid" rows="6" cols="50" value = {{ objection.complaint_id|default_if_none:"&nbsp;" }}>
+                        <input readonly id="compid" class="w-full border-2 border-gray-200 rounded-md" name="compid" rows="6" cols="50" value = '{{ objection.complaint_id|default_if_none:"&nbsp;" }}'>
                     </div>                         
                 </div>
                 <br>
                 <div class="w-full">
                     <label class="font-bold w-full">Complaint Language:</label>
                     <div class="pt-2">
-                        <input readonly id="complang" class="w-full border-2 border-gray-200 rounded-md" name="complang" rows="6" cols="50" value = {{ objection.complaint_language|default_if_none:"&nbsp;" }}>
+                        <input readonly id="complang" class="w-full border-2 border-gray-200 rounded-md" name="complang" rows="6" cols="50" value = '{{ objection.complaint_language|default_if_none:"&nbsp;" }}'>
                     </div>                         
                 </div>
                 <br>           
                 <div class="w-full">
                     <label class="font-bold w-full">Service Provider:</label>
                     <div class="pt-2">
-                        <input readonly id="sprovider" class="w-full border-2 border-gray-200 rounded-md" name="sprovider" rows="6" cols="50" value = {{ objection.service_provider|default_if_none:"&nbsp;" }}>
+                        <input readonly id="sprovider" class="w-full border-2 border-gray-200 rounded-md" name="sprovider" rows="6" cols="50" value = '{{ objection.service_provider|default_if_none:"&nbsp;" }}'>
                     </div>                         
                 </div>
                 <br>
                 <div class="w-full">
                     <label class="font-bold w-full">Agent:</label>
                     <div class="pt-2">
-                        <input readonly id="agent" class="w-full border-2 border-gray-200 rounded-md" name="agent" rows="6" cols="50" value = {{ objection.agent|default_if_none:"&nbsp;" }}>                          
+                        <input readonly id="agent" class="w-full border-2 border-gray-200 rounded-md" name="agent" rows="6" cols="50" value = '{{ objection.agent|default_if_none:"&nbsp;" }}'>                          
                     </div>                         
                 </div>
                 <br>   
                 <div class="w-full">
                     <label class="font-bold w-full">Date Submitted:</label>
                     <div class="pt-2">
-                        <input type='text' readonly id="dtsubmit" class="w-full border-2 border-gray-200 rounded-md" name="dtsubmit" rows="6" cols="50" value = {{ objection.date_submitted|date:'Y-m-d' }}>
+                        <input type='text' readonly id="dtsubmit" class="w-full border-2 border-gray-200 rounded-md" name="dtsubmit" rows="6" cols="50" value = '{{ objection.date_submitted|date:'Y-m-d h:i A' }}'>
                     </div>                         
                 </div>
                 <br>  
                 <div class="w-full">
-                    <label class="font-bold w-full">Time Submitted:</label>
-                    <div class="pt-2">
-                        <input type='text' readonly id="tsubmit" class="w-full border-2 border-gray-200 rounded-md" name="tsubmit" rows="6" cols="50" value = {{ objection.date_submitted|time:'H:i' }}>
-                    </div>                         
-                </div>
-                <br>                        
-                <div class="w-full">
                     <label class="font-bold w-full">Start Date of Processing:</label>
                     <div class="pt-2">
-                        <input type='text' readonly id="dtprocstart" class="w-full border-2 border-gray-200 rounded-md" name="dtprocstart" rows="6" cols="50" value = {{ objection.date_processing_start|date:'Y-m-d' }}>                           
+                        <input type='text' readonly id="dtprocstart" class="w-full border-2 border-gray-200 rounded-md" name="dtprocstart" rows="6" cols="50" value = '{{ objection.date_processing_start|date:'Y-m-d h:i A' }}'>                           
                     </div>                         
                 </div>
                 <br>
                 <div class="w-full">
-                    <label class="font-bold w-full">Start Time of Processing:</label>
-                    <div class="pt-2">
-                        <input type='text' readonly id="tprocstart" class="w-full border-2 border-gray-200 rounded-md" name="tprocstart" rows="6" cols="50" value = {{ objection.date_processing_start|time:'H:i' }}>
-                    </div>                         
-                </div>
-                <br>                
-                <div class="w-full">
                     <label class="font-bold w-full">Due Date:</label>
                     <div class="pt-2">
-                        <input type='text' readonly id="dtprocstart" class="w-full border-2 border-gray-200 rounded-md" name="dtprocstart" rows="6" cols="50" value = {{ objection.due_date|date:'Y-m-d' }}>                                                     
+                        <input type='text' readonly id="dtprocstart" class="w-full border-2 border-gray-200 rounded-md" name="dtprocstart" rows="6" cols="50" value = '{{ objection.due_date|date:'Y-m-d h:i A' }}'>                                                     
                     </div>                         
                 </div>
                 <br>  
                 <div class="w-full">
                     <label class="font-bold w-full">Status Note:</label>
                     <div class="pt-2">
-                        <input readonly id="snote" class="w-full border-2 border-gray-200 rounded-md" name="snote" rows="6" cols="50" value = {{ objection.status_note|default_if_none:"&nbsp;" }}>                         
+                        <input readonly id="snote" class="w-full border-2 border-gray-200 rounded-md" name="snote" rows="6" cols="50" value = '{{ objection.status_note|default_if_none:"&nbsp;" }}'>                         
                     </div>                         
                 </div>
                 <br>  
@@ -114,7 +100,7 @@
                 <div class="w-full">
                     <label class="font-bold w-full">Objection Status:</label>
                     <div class="pt-2">
-                        <input readonly id="objstat" class="w-full border-2 border-gray-200 rounded-md" name="objstat" rows="6" cols="50" value = {{ objection.objection_status|default_if_none:"&nbsp;" }}>                                                   
+                        <input readonly id="objstat" class="w-full border-2 border-gray-200 rounded-md" name="objstat" rows="6" cols="50" value = '{{ objection.objection_status|default_if_none:"&nbsp;" }}'>                                                   
                     </div>                         
                 </div>
                 <br>  
@@ -128,35 +114,28 @@
                 <div class="w-full">
                     <label class="font-bold w-full">Closing Level:</label>
                     <div class="pt-2">        
-                        <input readonly id="closelvl" class="w-full border-2 border-gray-200 rounded-md" name="closelvl" rows="6" cols="50" value = {{ objection.closing_level|default_if_none:"&nbsp;" }}>
+                        <input readonly id="closelvl" class="w-full border-2 border-gray-200 rounded-md" name="closelvl" rows="6" cols="50" value = '{{ objection.closing_level|default_if_none:"&nbsp;" }}'>
                     </div>                         
                 </div>
                 <br>  
                 <div class="w-full">
                     <label class="font-bold w-full">CCTS Assistance Required:</label>
                     <div class="pt-2">                        
-                        <input readonly id="cctsasstrqd" class="w-full border-2 border-gray-200 rounded-md" name="cctsasstrqd" rows="6" cols="50" value = {{ objection.ccts_assistance_required|default_if_none:"&nbsp;" }}>
+                        <input readonly id="cctsasstrqd" class="w-full border-2 border-gray-200 rounded-md" name="cctsasstrqd" rows="6" cols="50" value = '{{ objection.ccts_assistance_required|default_if_none:"&nbsp;" }}'>
                     </div>                         
                 </div>
                 <br>  
                 <div class="w-full">
                     <label class="font-bold w-full">Customer Assistance Required:</label>
                     <div class="pt-2">
-                        <input readonly id="cxasstrqd" class="w-full border-2 border-gray-200 rounded-md" name="cxasstrqd" rows="6" cols="50" value = {{ objection.customer_assistance_required|default_if_none:"&nbsp;" }}>
+                        <input readonly id="cxasstrqd" class="w-full border-2 border-gray-200 rounded-md" name="cxasstrqd" rows="6" cols="50" value = '{{ objection.customer_assistance_required|default_if_none:"&nbsp;" }}'>
                     </div> 
                 <br>                        
                 </div>
                 <div class="w-full">
                     <label class="font-bold w-full">End Date of Processing:</label>
                     <div class="pt-2">
-                        <input type='text' readonly id="dtprocend" class="w-full border-2 border-gray-200 rounded-md" name="dtprocend" rows="6" cols="50" value = {{ objection.date_processing_end|date:'Y-m-d' }}>
-                    </div>                         
-                </div>
-                <br>
-                <div class="w-full">
-                    <label class="font-bold w-full">End Time of Processing:</label>
-                    <div class="pt-2">
-                        <input type='text' readonly id="tprocend" class="w-full border-2 border-gray-200 rounded-md" name="tprocend" rows="6" cols="50" value = {{ objection.date_processing_end|time:'H:i' }}>
+                        <input type='text' readonly id="dtprocend" class="w-full border-2 border-gray-200 rounded-md" name="dtprocend" rows="6" cols="50" value = '{{ objection.date_processing_end|date:'Y-m-d h:i A' }}'>
                     </div>                         
                 </div>
                 <br>
