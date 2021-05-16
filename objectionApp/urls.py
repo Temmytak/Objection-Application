@@ -40,8 +40,8 @@ urlpatterns = [
     path('logout/', logout_user, name = 'logout-user'), 
 
     path('reset_password/',
-     auth_views.PasswordResetView.as_view(template_name="objections/password_reset.html"),
-     name="reset_password"),
+        auth_views.PasswordResetView.as_view(template_name="objections/password_reset.html"),
+        name="reset_password"),
 
     path('reset_password_sent/', 
         auth_views.PasswordResetDoneView.as_view(template_name="objections/password_reset_sent.html"), 
