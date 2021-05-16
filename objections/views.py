@@ -783,11 +783,13 @@ class objection_myobjections(LoginRequiredMixin, ListView):
         if a:
             objection_list = Objection.objects.filter(
                 agent__user__username = self.request.user.username,
+                date_processing_end__isnull = True,
                 complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
-                agent__user__username = self.request.user.username
+                agent__user__username = self.request.user.username,
+                date_processing_end__isnull = True
                 ).order_by('-date_submitted')
         return objection_list
 
