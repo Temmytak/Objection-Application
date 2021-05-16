@@ -15,16 +15,18 @@ from .forms import (
 import datetime
 from datetime import date  
 from excel_response import ExcelResponse
-from django.db.models import F
+from django.db.models import F, Q, Count, Avg
+from django.db.models.functions import TruncMonth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import unauthenticater_user, allowed_users
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
-@ login_required(login_url = 'login-page')
-def home_page(request):
-    return render(request, "objections/home_page.html")
+#@ login_required(login_url = 'login-page')
+#def home_page(request):
+#    return render(request, "objections/home_page.html")
 
 @ unauthenticater_user
 def login_page(request):
@@ -781,10 +783,86 @@ class objection_myobjections(LoginRequiredMixin, ListView):
         if a:
             objection_list = Objection.objects.filter(
                 agent__user__username = self.request.user.username,
+                date_processing_end__isnull = True,
                 complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
-                agent__user__username = self.request.user.username
+                agent__user__username = self.request.user.username,
+                date_processing_end__isnull = True
                 ).order_by('-date_submitted')
         return objection_list
+
+
+@ login_required(login_url = 'login-page')
+def home_page(request):
+    data = []
+    today_min = datetime.datetime.combine(date.today(), datetime.time.min)
+    seven_days_ago_i = (date.today() - datetime.timedelta(days=6))
+    seven_days_ago = datetime.datetime.combine(seven_days_ago_i, datetime.time.min)
+
+    unassignedObj = Objection.objects.filter(agent__isnull = True).count()
+    data.append(unassignedObj)
+
+    pastDue = Objection.objects.filter(due_date__lt = today_min, date_processing_end__isnull = True).count()
+    data.append(pastDue)
+
+    submittedObj = Objection.objects.filter(date_submitted__gte = seven_days_ago).count()
+    data.append(submittedObj)
+
+    completedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago).count()
+    data.append(completedObj)
+
+    acceptedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Accepted').count()
+    data.append(acceptedObj)
+
+    rejectedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Rejected').count()
+    data.append(rejectedObj)
+
+    closed91E = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Closed 9.1 E').count()
+    data.append(closed91E)  
+
+    Close7days = Objection.objects.filter(date_processing_end__gte = seven_days_ago)
+    AHTSubmitClose = Close7days.aggregate(duration=Avg(F('date_processing_end') - F('date_submitted')))
+    data.append(AHTSubmitClose['duration']) 
+ 
+    AHTStartClose = Close7days.aggregate(duration=Avg(F('date_processing_end') - F('date_processing_start')))
+    data.append(AHTStartClose['duration']) 
+
+    sixMonthsAgo = (date.today() - datetime.timedelta(days=1) + relativedelta(months=-6)).replace(day = 1)
+    Submitted6Months = Objection.objects.filter(date_submitted__gte = sixMonthsAgo)
+    subgroupedData = Submitted6Months.annotate(month=TruncMonth('date_submitted')).values('month').annotate(c=Count('complaint_id')).values('month', 'c') 
+    submitted_label = []
+    submitted_data = []
+    for chart_data in subgroupedData:
+        submitted_label.append(datetime.datetime.strftime(chart_data['month'], '%b'))
+        submitted_data.append(chart_data['c']) 
+  
+    Closed6Months = Objection.objects.filter(date_processing_end__gte = sixMonthsAgo)
+    clgroupedData = Closed6Months.annotate(month=TruncMonth('date_processing_end')).values('month').annotate(c=Count('complaint_id')).values('month', 'c') 
+    closed_label = []
+    closed_data = []
+    for chart_data in clgroupedData:
+        closed_label.append(datetime.datetime.strftime(chart_data['month'], '%b'))
+        closed_data.append(chart_data['c']) 
+
+    objections = {
+        'unassObj': data[0],
+        'pastDue': data[1],
+        'submittedObj': data[2],
+        'completedObj': data[3],
+        'acceptedObj': data[4],   
+        'rejectedObj': data[5],
+        'closed91E': data[6],
+        'AHTSubmitClose': data[7],
+        'AHTStartClose': data[8],
+        'submitted_label': submitted_label,
+        'submitted_data': submitted_data,
+        'closed_label': closed_label,
+        'closed_data': closed_data,        
+        'subchart_colours':['rgba(255, 99, 132, 0.2)'] * len(subgroupedData),
+        'subchart_border_colours': ['rgba(255, 99, 132, 0.5)'] * len(subgroupedData),
+        'clchart_colours':['rgba(0, 209, 178, 0.55)'] * len(clgroupedData),
+        'clchart_border_colours': ['rgba(0, 209, 178, 0.9)'] * len(clgroupedData)                  
+        }
+    return render(request, 'objections/home_page.html', objections)
