@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block pageheader %}
-    <p>View My Objections</p>
+    <p>View My Objection Queue</p>
 {% endblock pageheader %}
 
 {% block contentheader %}
@@ -29,22 +29,22 @@
                     <th class="px-8 py-2 text-left">
                     <span class="text-gray-300">IMS Complaint ID</span>
                     </th>
-                    <th class="px-8 py-2 text-left">
+                    <th class="px-8 py-2 text-left hidden md:table-cell">
                     <span class="text-gray-300">Service Provider</span>
                     </th>
                     <th class="px-8 py-2 text-left">
                     <span class="text-gray-300">Agent</span>
                     </th>
-                    <th class="px-8 py-2 text-left">
+                    <th class="px-8 py-2 text-left hidden md:table-cell">
                     <span class="text-gray-300">Date Submitted</span>
                     </th>
-                    <th class="px-8 py-2 text-left">
+                    <th class="px-8 py-2 text-left hidden md:table-cell">
                     <span class="text-gray-300">Start Date of Processing</span>
                     </th>
-                    <th class="px-8 py-2 text-left">
+                    <th class="px-8 py-2 text-left hidden md:table-cell">
                     <span class="text-gray-300">Due Date</span>
                     </th>
-                    <th class="px-8 py-2 text-left">
+                    <th class="px-8 py-2 text-left hidden md:table-cell">
                     <span class="text-gray-300">End Date of Processing</span>
                     </th>                                                                                                    
                 </tr>
@@ -55,23 +55,23 @@
                     <td class="px-8 py-2 text-left">
                     <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.complaint_id|default_if_none:"&nbsp;" }}</a></span>
                     </td>
-                    <td class="px-8 py-2 text-left">
+                    <td class="px-8 py-2 text-left hidden md:table-cell">
                     <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.service_provider|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
                     <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.agent|default_if_none:"&nbsp;" }}</a></span>
                     </td>
-                    <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted|default_if_none:"&nbsp;" }}</a></span>
+                    <td class="px-8 py-2 text-left hidden md:table-cell">
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted|date:'Y-m-d h:i A' }}</a></span>
                     </td>
-                    <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start|default_if_none:"&nbsp;" }}</a></span>
+                    <td class="px-8 py-2 text-left hidden md:table-cell">
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start|date:'Y-m-d h:i A' }}</a></span>
                     </td>
-                    <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|default_if_none:"&nbsp;" }}</a></span>
+                    <td class="px-8 py-2 text-left hidden md:table-cell">
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|date:'Y-m-d h:i A' }}</a></span>
                     </td>
-                    <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|default_if_none:"&nbsp;" }}</a></span>
+                    <td class="px-8 py-2 text-left hidden md:table-cell">
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|date:'Y-m-d h:i A' }}</a></span>
                     </td>                                                                                                    
                 </tr>
                 {% endfor %}

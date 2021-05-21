@@ -34,10 +34,12 @@
     </table>
 
     <div class="flex flex-wrap w-full text-center">
+        {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}
         <div class="pt-4">
             <a href="{% url 'serviceprovider-update' serviceprovider.id %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Edit</a>
         </div>
         <div class="w-8"></div>
+        {% endif %}
         <div class="pt-4">                
             <a href="{% url 'service-provider' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Go Back</a>
         </div>                          

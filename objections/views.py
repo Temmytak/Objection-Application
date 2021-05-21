@@ -51,7 +51,7 @@ def logout_user(request):
 
 
 @ login_required()
-@ allowed_users(allowed_roles=['supervisor','superuser'])
+# @ allowed_users(allowed_roles=['supervisor','superuser'])
 def administrative_tasks(request):
     return render(request, "objections/administrative_tasks.html")
 
@@ -798,8 +798,8 @@ class objection_myobjections(LoginRequiredMixin, ListView):
 def home_page(request):
     data = []
     today_min = datetime.datetime.combine(date.today(), datetime.time.min)
-    seven_days_ago_i = (date.today() - datetime.timedelta(days=6))
-    seven_days_ago = datetime.datetime.combine(seven_days_ago_i, datetime.time.min)
+    month_start_i = (date.today()).replace(day = 1)
+    month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
 
     unassignedObj = Objection.objects.filter(agent__isnull = True).count()
     data.append(unassignedObj)
@@ -807,27 +807,27 @@ def home_page(request):
     pastDue = Objection.objects.filter(due_date__lt = today_min, date_processing_end__isnull = True).count()
     data.append(pastDue)
 
-    submittedObj = Objection.objects.filter(date_submitted__gte = seven_days_ago).count()
+    submittedObj = Objection.objects.filter(date_submitted__gte = month_start).count()
     data.append(submittedObj)
 
-    completedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago).count()
+    completedObj = Objection.objects.filter(date_processing_end__gte = month_start).count()
     data.append(completedObj)
 
-    acceptedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Accepted').count()
+    acceptedObj = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Accepted').count()
     data.append(acceptedObj)
 
-    rejectedObj = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Rejected').count()
+    rejectedObj = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Rejected').count()
     data.append(rejectedObj)
 
-    closed91E = Objection.objects.filter(date_processing_end__gte = seven_days_ago, objection_status__name__icontains = 'Closed 9.1 E').count()
+    closed91E = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Closed 9.1 E').count()
     data.append(closed91E)  
 
-    Close7days = Objection.objects.filter(date_processing_end__gte = seven_days_ago)
-    AHTSubmitClose = Close7days.aggregate(duration=Avg(F('date_processing_end') - F('date_submitted')))
-    data.append(AHTSubmitClose['duration']) 
+    CloseMtd = Objection.objects.filter(date_processing_end__gte = month_start)
+    AHTSubmitClose = CloseMtd.aggregate(duration=Avg(F('date_processing_end') - F('date_submitted')))
+    data.append(str(AHTSubmitClose['duration']).split(".")[0]) 
  
-    AHTStartClose = Close7days.aggregate(duration=Avg(F('date_processing_end') - F('date_processing_start')))
-    data.append(AHTStartClose['duration']) 
+    AHTStartClose = CloseMtd.aggregate(duration=Avg(F('date_processing_end') - F('date_processing_start')))
+    data.append(str(AHTStartClose['duration']).split(".")[0]) 
 
     sixMonthsAgo = (date.today() - datetime.timedelta(days=1) + relativedelta(months=-6)).replace(day = 1)
     Submitted6Months = Objection.objects.filter(date_submitted__gte = sixMonthsAgo)
@@ -866,3 +866,149 @@ def home_page(request):
         'clchart_border_colours': ['rgba(0, 209, 178, 0.9)'] * len(clgroupedData)                  
         }
     return render(request, 'objections/home_page.html', objections)
+
+
+class objection_submitted(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_submitted.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        month_start_i = (date.today()).replace(day = 1)
+        month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                date_submitted__gte = month_start,
+                complaint_id__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                date_submitted__gte = month_start
+                ).order_by('-date_submitted')
+        return objection_list
+
+
+class objection_accepted(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_accepted.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        month_start_i = (date.today()).replace(day = 1)
+        month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Accepted',
+                complaint_id__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Accepted'
+                ).order_by('-date_submitted')
+        return objection_list
+
+
+class objection_rejected(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_rejected.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        month_start_i = (date.today()).replace(day = 1)
+        month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Rejected',
+                complaint_id__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Rejected'
+                ).order_by('-date_submitted')
+        return objection_list                
+
+
+class objection_closed91e(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_closed_91e.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        month_start_i = (date.today()).replace(day = 1)
+        month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Closed 9.1 E',
+                complaint_id__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                date_processing_end__gte = month_start, 
+                objection_status__name__icontains = 'Closed 9.1 E'
+                ).order_by('-date_submitted')
+        return objection_list
