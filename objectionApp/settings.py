@@ -141,6 +141,7 @@ LOGIN_REDIRECT_URL = "home-page"
 LOGIN_URL = "login-page"
 
 
+# SMTP Configuration
 
 
 # SESSIONS
