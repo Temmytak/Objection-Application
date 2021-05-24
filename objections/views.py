@@ -38,12 +38,13 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home-page')
+            # return redirect('home-page')
+            return redirect(request.GET.get('next', 'home-page'))
         else:
             messages.info(request, 'username or password is incorrect')
 
     return render(request, "objections/login_page.html")
-
+    
 
 def logout_user(request):
     logout(request)
@@ -883,7 +884,8 @@ class objection_submitted(LoginRequiredMixin, ListView):
         "due_date",
         "date_processing_end"
     ]
-
+ 
+ 
     def get_queryset(self):
         month_start_i = (date.today()).replace(day = 1)
         month_start = datetime.datetime.combine(month_start_i, datetime.time.min)
