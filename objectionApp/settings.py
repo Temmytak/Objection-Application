@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,9 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
+sys.modules['fontawesome_free'] = __import__('fontawesome-free') #fix to tackle font-awesome naming issue
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,8 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'objections',
     'widget_tweaks',
-    'auditlog'
+    'auditlog',
+    'tailwind',
+    'app',
+    'fontawesome_free',
 ]
+
+TAILWIND_APP_NAME = 'app'
+
+NPM_BIN_PATH = r"C:\ProgramData\Anaconda3\npm.cmd"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,6 +133,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'node_modules'),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

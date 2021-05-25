@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block pageheader %}
     <p>Update Customer Assistance Required</p>
@@ -9,19 +10,30 @@
 {% endblock contentheader %}
 
 {% block content %}
-<div class="flex flex-wrap w-3/4 border-2 border-gray-400 p-4">
-    <div class="flex w-full justify-around"> 
-        <div class="flex justify-center">
-            <form method="post" class="flex flex-col"> 
+<div class="p-6 flex w-1/2 flex-wrap">
+            <form method="post" class="w-full"> 
                 {% csrf_token %} 
-                <table>{{ form }}</table>
-                <div class="flex pt-4 justify-between">
-                    <input class="h-8 w-24 text-xs text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Save"> 
+
+                <p class="text-red-500"><i>Fields marked with an asterisk (*) are required</i></p><br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Customer Assistance: <span class="text-red-500">*</span></label>
+                    <div class="pt-2">
+                        {% render_field form.name class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
+                    </div>                         
+                </div>
+                <br>
+                <div class="w-full">
+                    <label class="font-bold w-full">Active Flag: <span class="text-red-500">*</span></label>
+                    <div class="pt-2">
+                        {% render_field form.active class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
+                    </div>                         
+                </div>
+                <br>
+                <div class="flex justify-between">
+                    <input class="h-12 w-64 text-md font-bold text-indigo-50 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Save"> 
                     <div class="w-4"></div>
-                    <a href="{% url 'customerassistance-detail' customerassistance.id %}" class="flex justify-center h-8 w-24 text-xs items-center text-indigo-100 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">Cancel</a>
+                    <a href="{% url 'customerassistance-detail' customerassistance.id %}" class="flex justify-center h-12 w-64 text-md items-center font-bold text-indigo-50 transition-colors duration-150 bg-red-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-red-800">Cancel</a>
                 </div>
             </form> 
-        </div>
-    </div>  
 </div>
 {% endblock content %}
