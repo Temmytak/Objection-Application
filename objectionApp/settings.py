@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import sys
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ehviddt%g(f)(@m&cuk!nidr9gw$qasb35p-&2lrx#d)yo$x5d'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,6 +97,25 @@ DATABASES = {
     }
 }
 
+if DEBUG is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': env('PROD_DB_ENGINE'),
+            'NAME': env('PROD_DB_NAME'),
+            'USER': env('PROD_DB_USER'),
+            'PASSWORD': env('PROD_DB_PASSWORD'),
+            'HOST': env('PROD_DB_HOST'),
+            'PORT': env('PROD_DB_PORT'),
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -150,12 +174,21 @@ LOGIN_URL = "login-page"
 
 
 # SMTP Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'databoidjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'databoi1234%'
+if DEBUG is True:
+    EMAIL_BACKEND = env('DEV_EMAIL_BACKEND')
+    EMAIL_HOST = env('DEV_EMAIL_HOST')
+    EMAIL_PORT = env('DEV_EMAIL_PORT')
+    EMAIL_USE_TLS = env('DEV_EMAIL_USE_TLS')
+    EMAIL_HOST_USER = env('DEV_EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('DEV_EMAIL_HOST_PASSWORD')
+else:
+    EMAIL_BACKEND = env('PROD_EMAIL_BACKEND')
+    EMAIL_HOST = env('PROD_EMAIL_HOST')
+    EMAIL_PORT = env('PROD_EMAIL_PORT')
+    EMAIL_USE_TLS = env('PROD_EMAIL_USE_TLS')
+    EMAIL_HOST_USER = env('PROD_EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('PROD_EMAIL_HOST_PASSWORD')
+
 
 # SESSIONS
 SESSION_COOKIE_AGE = 1200
