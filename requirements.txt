@@ -21,6 +21,7 @@ jinja2-time==0.2.0
 MarkupSafe==2.0.1
 openpyxl==2.4.11
 poyo==0.5.0
+psycopg2==2.8.6
 python-dateutil==2.8.1
 python-slugify==5.0.2
 pytz==2021.1

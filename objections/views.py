@@ -1014,3 +1014,10 @@ class objection_closed91e(LoginRequiredMixin, ListView):
                 objection_status__name__icontains = 'Closed 9.1 E'
                 ).order_by('-date_submitted')
         return objection_list
+
+
+def error_404_view(request, exception):
+    return render(request, "objections/error_404.html")
+
+def error_500_view(request):
+    return render(request, "objections/error_500.html")

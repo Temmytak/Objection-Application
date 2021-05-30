@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from objections.decorators import allowed_users
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
+from django.conf.urls import handler404, handler500
+import objections.views as vw
 from objections.views import (
     administrative_tasks, home_page, login_page, logout_user,
     serviceprovider_list, serviceprovider_detail, serviceprovider_update, serviceprovider_create, 
@@ -34,6 +38,8 @@ from objections.views import (
     )
 
 urlpatterns = [
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon.ico'))),
+
     path('admin/', admin.site.urls),    
 
     path('login/', login_page, name = 'login-page'),  
@@ -126,3 +132,6 @@ urlpatterns = [
     path('objection/objections-rejected/', objection_rejected.as_view(), name='objection-rejected'),
     path('objection/objections-closed91e/', objection_closed91e.as_view(), name='objection-closed91e'),
 ]
+
+handler404 = vw.error_404_view
+handler500 = vw.error_500_view
