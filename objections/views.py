@@ -843,7 +843,7 @@ def home_page(request):
 
     sixMonthsAgo = (date.today() - datetime.timedelta(days=1) + relativedelta(months=-6)).replace(day = 1)
     Submitted6Months = Objection.objects.filter(date_submitted__gte = sixMonthsAgo)
-    subgroupedData = Submitted6Months.annotate(month=TruncMonth('date_submitted')).values('month').annotate(c=Count('complaint_id')).values('month', 'c') 
+    subgroupedData = Submitted6Months.annotate(month=TruncMonth('date_submitted')).values('month').order_by('month').annotate(c=Count('complaint_id')).values('month', 'c') 
     submitted_label = []
     submitted_data = []
     for chart_data in subgroupedData:
@@ -851,7 +851,7 @@ def home_page(request):
         submitted_data.append(chart_data['c']) 
   
     Closed6Months = Objection.objects.filter(date_processing_end__gte = sixMonthsAgo)
-    clgroupedData = Closed6Months.annotate(month=TruncMonth('date_processing_end')).values('month').annotate(c=Count('complaint_id')).values('month', 'c') 
+    clgroupedData = Closed6Months.annotate(month=TruncMonth('date_processing_end')).values('month').order_by('month').annotate(c=Count('complaint_id')).values('month', 'c') 
     closed_label = []
     closed_data = []
     for chart_data in clgroupedData:
