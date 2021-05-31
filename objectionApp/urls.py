@@ -74,7 +74,7 @@ urlpatterns = [
 
     path('administrative-tasks/agent/', agent_list.as_view(), name = 'agent-home'),
     path('administrative-tasks/agent/<int:pk>/', agent_detail.as_view(), name = 'agent-detail'),
-    path('administrative-tasks/agent/<int:pk>/update/', agent_update.as_view(), name = 'agent-update'),
+    path('administrative-tasks/agent/<int:pk>/update/', allowed_users(allowed_roles=['supervisor','superuser'])(agent_update.as_view()), name = 'agent-update'),
     #path('administrative-tasks/agent/<int:pk>/delete/', agent_delete.as_view(), name='agent-delete'),
     path('administrative-tasks/agent/create/', allowed_users(allowed_roles=['supervisor','superuser'])(agent_create.as_view()), name='agent-create'),
 
