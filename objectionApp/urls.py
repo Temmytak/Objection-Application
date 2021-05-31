@@ -24,7 +24,7 @@ import objections.views as vw
 from objections.views import (
     administrative_tasks, home_page, login_page, logout_user,
     serviceprovider_list, serviceprovider_detail, serviceprovider_update, serviceprovider_create, 
-    agent_list, agent_detail, agent_create, 
+    agent_list, agent_detail, agent_create, agent_update,
     language_list, language_detail, language_create, language_update,
     statusnote_list, statusnote_detail, statusnote_create, statusnote_update,
     refcode_list, refcode_detail, refcode_create, refcode_update,
@@ -74,7 +74,7 @@ urlpatterns = [
 
     path('administrative-tasks/agent/', agent_list.as_view(), name = 'agent-home'),
     path('administrative-tasks/agent/<int:pk>/', agent_detail.as_view(), name = 'agent-detail'),
-    #path('administrative-tasks/agent/<int:pk>/update/', agent_update.as_view(), name = 'agent-update'),
+    path('administrative-tasks/agent/<int:pk>/update/', agent_update.as_view(), name = 'agent-update'),
     #path('administrative-tasks/agent/<int:pk>/delete/', agent_delete.as_view(), name='agent-delete'),
     path('administrative-tasks/agent/create/', allowed_users(allowed_roles=['supervisor','superuser'])(agent_create.as_view()), name='agent-create'),
 

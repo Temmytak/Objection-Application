@@ -24,7 +24,7 @@
     {% if agents %}
         <div class="flex w-full"><div class="flex w-2/3">
         {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}
-        <p class = "py-2 text-left"> Click on an Agent to View or <span><a href="{% url 'agent-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p>
+        <p class = "py-2 text-left"> Click on an Agent to Update or <span><a href="{% url 'agent-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p>
         {% endif %}
         </div><div class="flex w-1/3 justify-end"><a href="{% url 'administrative-tasks' %}" class = "py-2 text-right font-bold text-gray-500 hover:text-blue-800 underline"> Back to admin tasks</a></div></div>
             <table id="psp" class="min-w-full table-auto display">
@@ -33,6 +33,9 @@
                     <th class="px-8 py-2 text-left">
                     <span class="text-gray-300">Agent Username</span>
                     </th>
+                    <th class="px-8 py-2 text-left">
+                    <span class="text-gray-300">Active</span>
+                    </th> 
                 </tr>
                 </thead>
                 <tbody class="bg-gray-200">
@@ -41,6 +44,9 @@
                     <td class="px-8 py-2 text-left">
                     <span><a href="/administrative-tasks/agent/{{ agent.pk }}/">{{ agent.user }}</a></span>
                     </td>
+                    <td class="px-8 py-2 text-left">
+                    <span>{{ agent.active }}</span>
+                    </td>                    
                 </tr>
                 {% endfor %}
                 </tbody>

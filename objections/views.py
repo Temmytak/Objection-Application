@@ -123,6 +123,17 @@ class agent_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return form    
 
 
+class agent_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Agent
+    context_object_name = 'agent'
+    template_name = 'objections/agent_update.html'
+    success_message = "Record updated successfully"
+    fields = [
+        "user",
+        "active"
+    ]
+    success_url = reverse_lazy("agent-home")
+
 #class agent_delete(LoginRequiredMixin, DeleteView):
 #    model = Agent
 #    context_object_name = 'agents'
@@ -536,7 +547,7 @@ class objection_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form = super(objection_create, self).get_form(*args, **kwargs)
         form.fields['complaint_language'].queryset = ComplaintLanguage.objects.filter(active = True)
         form.fields['service_provider'].queryset = ServiceProvider.objects.filter(active = True)
-        form.fields['agent'].queryset = Agent.objects.filter(user__is_active = True)
+        form.fields['agent'].queryset = Agent.objects.filter(active = True)
         form.fields['status_note'].queryset = StatusNote.objects.filter(active = True)
         form.fields['psp_objection_referenced_code_section'].queryset = ReferencedCodeSection.objects.filter(active = True)
         form.fields['ccts_determination_referenced_code_section'].queryset = ReferencedCodeSection.objects.filter(active = True)
@@ -596,7 +607,7 @@ class objection_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form = super(objection_update, self).get_form(*args, **kwargs)
         form.fields['complaint_language'].queryset = ComplaintLanguage.objects.filter(active = True)
         form.fields['service_provider'].queryset = ServiceProvider.objects.filter(active = True)
-        form.fields['agent'].queryset = Agent.objects.filter(user__is_active = True)
+        form.fields['agent'].queryset = Agent.objects.filter(active = True)
         form.fields['status_note'].queryset = StatusNote.objects.filter(active = True)
         form.fields['psp_objection_referenced_code_section'].queryset = ReferencedCodeSection.objects.filter(active = True)
         form.fields['ccts_determination_referenced_code_section'].queryset = ReferencedCodeSection.objects.filter(active = True)

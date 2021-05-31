@@ -27,6 +27,12 @@ class ServiceProvider(models.Model):
 class Agent(models.Model):
     user = models.OneToOneField(to = User, on_delete = models.CASCADE)
 
+    active_choices = (
+        (True, True),
+        (False, False)
+    )
+
+    active = models.BooleanField(default=1, choices = active_choices)
     def __str__(self):
         return self.user.username
 
