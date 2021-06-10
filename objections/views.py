@@ -806,6 +806,39 @@ class objection_myobjections(LoginRequiredMixin, ListView):
         return objection_list
 
 
+class objection_open(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_open.html'
+    model = Objection
+    context_object_name = 'objections'
+    paginate_by = 20
+
+    fields = [
+        "complaint_id",
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                date_processing_end__isnull = True,
+                complaint_id__icontains=a
+            ).order_by('-date_submitted')
+        else:
+            objection_list = Objection.objects.filter(
+                date_processing_end__isnull = True
+                ).order_by('-date_submitted')
+        return objection_list
+
+
 @ login_required(login_url = 'login-page')
 def home_page(request):
     data = []
@@ -819,8 +852,11 @@ def home_page(request):
     pastDue = Objection.objects.filter(due_date__lt = today_min, date_processing_end__isnull = True).count()
     data.append(pastDue)
 
-    submittedObj = Objection.objects.filter(date_submitted__gte = month_start).count()
-    data.append(submittedObj)
+    #submittedObj = Objection.objects.filter(date_submitted__gte = month_start).count()
+    #data.append(submittedObj)
+
+    openObj = Objection.objects.filter(date_processing_end__isnull = True).count()
+    data.append(openObj)
 
     completedObj = Objection.objects.filter(date_processing_end__gte = month_start).count()
     data.append(completedObj)
@@ -861,7 +897,8 @@ def home_page(request):
     objections = {
         'unassObj': data[0],
         'pastDue': data[1],
-        'submittedObj': data[2],
+        #'submittedObj': data[2],
+        'openObj': data[2],
         'completedObj': data[3],
         'acceptedObj': data[4],   
         'rejectedObj': data[5],
