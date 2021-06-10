@@ -84,7 +84,7 @@
                 </div>
                 <div class="w-1/3 pt-4">
                     {% if page_obj.has_previous %}
-                        <a href="/objection/objections-open?page={{ page_obj.previous_page_number }}" class="font-bold text-gray-500">Previous</a>
+                        <a href="/objection/open-objections?page={{ page_obj.previous_page_number }}" class="font-bold text-gray-500">Previous</a>
                     {% endif %}
                 </div>
                 <div class="w-1/3 pt-4 font-bold text-gray-500">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="w-1/3 pt-4">                
                     {% if page_obj.has_next %}
-                        <a href="/objection/objections-open?page={{ page_obj.next_page_number }}" class="font-bold text-gray-500">Next</a>
+                        <a href="/objection/open-objections?page={{ page_obj.next_page_number }}" class="font-bold text-gray-500">Next</a>
                     {% endif %}
                 </div>                    
             </div>
