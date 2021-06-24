@@ -34,7 +34,8 @@ from objections.views import (
     cctsassistance_list, cctsassistance_detail, cctsassistance_create, cctsassistance_update,
     customerassistance_list, customerassistance_detail, customerassistance_create, customerassistance_update, 
     objection_create, objection_list, objection_detail, objection_update, objection_pastdue, objection_unassigned, objection_delete, 
-    objection_report_date_submitted, objection_myobjections, objection_submitted, objection_accepted, objection_rejected, objection_closed91e, objection_open,
+    objection_report_date_submitted, objection_myobjections, objection_submitted, objection_accepted, objection_rejected, 
+    objection_closed91e, objection_open, objection_view
     )
 
 urlpatterns = [
@@ -128,6 +129,7 @@ urlpatterns = [
     path('objection/objections-list/<int:pk>/delete/', allowed_users(allowed_roles=['supervisor','superuser'])(objection_delete.as_view()), name='objection-delete'),
     path('objection/objections-reports/', objection_report_date_submitted, name='objection-report'),
     path('objection/objections-myobjections/', objection_myobjections.as_view(), name='objection-myobjections'),
+    path('objection/objections-viewobjection/', objection_view.as_view(), name='objection-view'),
     #path('objection/objections-submitted/', objection_submitted.as_view(), name='objection-submitted'),
     path('objection/objections-accepted/', objection_accepted.as_view(), name='objection-accepted'),
     path('objection/objections-rejected/', objection_rejected.as_view(), name='objection-rejected'),

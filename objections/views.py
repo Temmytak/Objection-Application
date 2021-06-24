@@ -61,7 +61,6 @@ class serviceprovider_list(LoginRequiredMixin, ListView):
     template_name = 'objections/serviceprovider_list.html'
     model = ServiceProvider
     context_object_name = 'serviceproviders'
-    paginate_by = 20
 
     def get_queryset(self):
         try:
@@ -151,7 +150,6 @@ class agent_list(LoginRequiredMixin, ListView):
     template_name = 'objections/agent_list.html'
     model = Agent
     context_object_name = 'agents'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -171,7 +169,6 @@ class language_list(LoginRequiredMixin, ListView):
     template_name = 'objections/language_list.html'
     model = ComplaintLanguage
     context_object_name = 'languages'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -217,7 +214,6 @@ class statusnote_list(LoginRequiredMixin, ListView):
     template_name = 'objections/statusnote_list.html'
     model = StatusNote
     context_object_name = 'statusnotes'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -263,7 +259,6 @@ class refcode_list(LoginRequiredMixin, ListView):
     template_name = 'objections/refcode_list.html'
     model = ReferencedCodeSection
     context_object_name = 'refcodes'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -309,7 +304,6 @@ class objectionstatus_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objectionstatus_list.html'
     model = ObjectionStatus
     context_object_name = 'objectionstatus'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -355,7 +349,6 @@ class objectionassessment_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objectionassessment_list.html'
     model = ObjectionAssessment
     context_object_name = 'objectionassessments'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -401,7 +394,6 @@ class closinglevel_list(LoginRequiredMixin, ListView):
     template_name = 'objections/closinglevel_list.html'
     model = ClosingLevel
     context_object_name = 'closinglevels'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -447,7 +439,6 @@ class cctsassistance_list(LoginRequiredMixin, ListView):
     template_name = 'objections/cctsassistance_list.html'
     model = CCTSAssistanceRequired
     context_object_name = 'cctsassistances'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -493,7 +484,6 @@ class customerassistance_list(LoginRequiredMixin, ListView):
     template_name = 'objections/customerassistance_list.html'
     model = CustomerAssistanceRequired
     context_object_name = 'customerassistances'
-    paginate_by = 10
 
     def get_queryset(self):
         try:
@@ -562,10 +552,10 @@ class objection_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_list.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -575,16 +565,10 @@ class objection_list(LoginRequiredMixin, ListView):
     ]
 
     def get_queryset(self):
-        try:
-            a = self.request.GET.get('complaint_id',)
-        except KeyError:
-            a = None
-        if a:
-            objection_list = Objection.objects.filter(
-                complaint_id__icontains=a
-            ).order_by('-date_submitted')
-        else:
-            objection_list = Objection.objects.all().order_by('-date_submitted')
+        sixMonthsAgo = (date.today() - datetime.timedelta(days=1) + relativedelta(months=-6)).replace(day = 1)       
+        objection_list = Objection.objects.filter(
+            date_submitted__gte = sixMonthsAgo
+            ).order_by('-date_submitted').order_by('-date_submitted')
         return objection_list
 
 
@@ -622,10 +606,10 @@ class objection_pastdue(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_pastdue.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',        
         "service_provider",
         "agent",
         "date_submitted",
@@ -659,10 +643,10 @@ class objection_unassigned(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_unassigned.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',        
         "service_provider",
         "agent",
         "date_submitted",
@@ -774,10 +758,10 @@ class objection_myobjections(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_myobjections.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -805,14 +789,44 @@ class objection_myobjections(LoginRequiredMixin, ListView):
         return objection_list
 
 
+class objection_view(LoginRequiredMixin, ListView):
+    template_name = 'objections/objection_view.html'
+    model = Objection
+    context_object_name = 'objections'
+
+    fields = [
+        "complaint_id",
+        'complaint_language',
+        "service_provider",
+        "agent",
+        "date_submitted",
+        "date_processing_start",
+        "due_date",
+        "date_processing_end"
+    ]
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('complaint_id',)
+        except KeyError:
+            a = None
+        if a:
+            objection_list = Objection.objects.filter(
+                complaint_id__icontains=a
+            )
+        else:
+            objection_list = None
+        return objection_list
+
+
 class objection_open(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_open.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -920,10 +934,10 @@ class objection_submitted(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_submitted.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -956,10 +970,10 @@ class objection_accepted(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_accepted.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -993,10 +1007,10 @@ class objection_rejected(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_rejected.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",
@@ -1030,10 +1044,10 @@ class objection_closed91e(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_closed_91e.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
 
     fields = [
         "complaint_id",
+        'complaint_language',
         "service_provider",
         "agent",
         "date_submitted",

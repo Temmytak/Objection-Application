@@ -10,17 +10,6 @@
 
 {% block content %}
 <div class="w-3/4">
-    <div class="flex flex-wrap justify-center border-2 border-gray-400 h-12 content-center">
-        <div class="flex w-full justify-center">
-            <form action="{% url 'statusnote-list' %}" method="get" class="flex w-full justify-center">
-                <input id="al-search" type="text"
-                    name="name" value="{{ request.GET.name }}"
-                    class="w-1/3 border-2 border-gray-300 rounded-lg h-8 text-center text-sm" placeholder="Status Note" />
-                    <div class="w-4"></div>
-                <input class="h-8 w-24 justify-center text-xs text-center text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Search" />
-            </form>
-        </div>
-    </div>
     {% if statusnotes %}
         <div class="flex w-full"><div class="flex w-2/3">
         {% if request.user.groups.all.0.name == "supervisor" or request.user.groups.all.0.name == "superuser" %}

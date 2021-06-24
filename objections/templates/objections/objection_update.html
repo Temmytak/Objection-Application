@@ -23,16 +23,16 @@
                 </div>
                 <br>
                 <div class="w-full">
-                    <label class="font-bold w-full">Complaint Language:</label>
+                    <label class="font-bold w-full">Complaint Language: <span class="text-red-500">*</span></label>
                     <div class="pt-2">
-                        {% render_field form.complaint_language class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
+                        {% render_field form.complaint_language|attr:'required:true' class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
                     </div>                         
                 </div>
                 <br>           
                 <div class="w-full">
-                    <label class="font-bold w-full">Service Provider:</label>
+                    <label class="font-bold w-full">Service Provider: <span class="text-red-500">*</span></label>
                     <div class="pt-2">
-                        {% render_field form.service_provider class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
+                        {% render_field form.service_provider|attr:'required:true' class="w-full border-2 border-gray-300 rounded-lg h-16 text-sm" %}
                     </div>                         
                 </div>
                 <br>
