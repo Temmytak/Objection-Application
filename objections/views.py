@@ -563,7 +563,7 @@ class objection_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_list.html'
     model = Objection
     context_object_name = 'objections'
-    paginate_by = 20
+    # paginate_by = 20
 
     fields = [
         "complaint_id",

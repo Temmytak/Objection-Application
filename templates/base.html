@@ -144,19 +144,37 @@
     <script>
         $(document).ready( function () {
             $('#psp').DataTable(
-                {"paging": false,
-                "bFilter": false}
-                );
+                {"paging": true,
+                "bFilter": true,
+                "sLengthMenu": "Display _MENU_ records",
+                "oLanguage": {
+                "sLengthMenu": 'Display <select style="width: 70px;">'+
+                    '<option value="10">10</option>'+
+                    '<option value="25">25</option>'+
+                    '<option value="50">50</option>'+
+                    '<option value="100">100</option>'+
+                    '</select> records'
+                }
+                });
         } );
-    </script>
+    </script>  
 
     <script>
         $(document).ready( function () {
             $('#obj').DataTable(
-                {"paging": false,
-                "bFilter": false,
-                "order": [[ 3, "desc" ]]}
-                );
+                {"paging": true,
+                "bFilter": true,
+                /*"order": [[ 3, "desc" ]],*/
+                "sLengthMenu": "Display _MENU_ records",
+                "oLanguage": {
+                "sLengthMenu": 'Display <select style="width: 70px;">'+
+                    '<option value="10">10</option>'+
+                    '<option value="25">25</option>'+
+                    '<option value="50">50</option>'+
+                    '<option value="100">100</option>'+
+                    '</select> records'
+                }
+                });
         } );
     </script>    
 
