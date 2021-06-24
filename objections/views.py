@@ -122,7 +122,6 @@ class agent_create(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.fields['user'].queryset = User.objects.filter(is_active = True)
         return form    
 
-
 class agent_update(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Agent
     context_object_name = 'agent'
@@ -563,7 +562,7 @@ class objection_list(LoginRequiredMixin, ListView):
     template_name = 'objections/objection_list.html'
     model = Objection
     context_object_name = 'objections'
-    # paginate_by = 20
+    paginate_by = 20
 
     fields = [
         "complaint_id",
@@ -710,7 +709,7 @@ def objection_report_date_submitted(request):
         if fromdate > todate:
             return render(request, 'objections/objection_report.html')
         else:
-            reportresult = Objection.objects.filter(date_submitted__gte = fromdate, date_submitted__lte = todate).values(
+            reportresult = Objection.objects.filter(date_submitted__date__gte = fromdate, date_submitted__date__lte = todate).values(
                 'complaint_id',
                 'complaint_language__name',
                 'service_provider__name',
@@ -836,7 +835,7 @@ class objection_open(LoginRequiredMixin, ListView):
             objection_list = Objection.objects.filter(
                 date_processing_end__isnull = True
                 ).order_by('-date_submitted')
-        return objection_list
+        return objection_list        
 
 
 @ login_required(login_url = 'login-page')
@@ -856,7 +855,7 @@ def home_page(request):
     #data.append(submittedObj)
 
     openObj = Objection.objects.filter(date_processing_end__isnull = True).count()
-    data.append(openObj)
+    data.append(openObj)    
 
     completedObj = Objection.objects.filter(date_processing_end__gte = month_start).count()
     data.append(completedObj)
@@ -867,7 +866,7 @@ def home_page(request):
     rejectedObj = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Rejected').count()
     data.append(rejectedObj)
 
-    closed91E = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Closed 9.1 E').count()
+    closed91E = Objection.objects.filter(date_processing_end__gte = month_start, objection_status__name__icontains = 'Closed 9.1 (e)').count()
     data.append(closed91E)  
 
     CloseMtd = Objection.objects.filter(date_processing_end__gte = month_start)
@@ -898,7 +897,7 @@ def home_page(request):
         'unassObj': data[0],
         'pastDue': data[1],
         #'submittedObj': data[2],
-        'openObj': data[2],
+        'openObj': data[2],        
         'completedObj': data[3],
         'acceptedObj': data[4],   
         'rejectedObj': data[5],
@@ -1053,13 +1052,13 @@ class objection_closed91e(LoginRequiredMixin, ListView):
         if a:
             objection_list = Objection.objects.filter(
                 date_processing_end__gte = month_start, 
-                objection_status__name__icontains = 'Closed 9.1 E',
+                objection_status__name__icontains = 'Closed 9.1 (e)',
                 complaint_id__icontains=a
             ).order_by('-date_submitted')
         else:
             objection_list = Objection.objects.filter(
                 date_processing_end__gte = month_start, 
-                objection_status__name__icontains = 'Closed 9.1 E'
+                objection_status__name__icontains = 'Closed 9.1 (e)'
                 ).order_by('-date_submitted')
         return objection_list
 

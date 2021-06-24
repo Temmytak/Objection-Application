@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="w-full">
-    <!--<div class="flex flex-wrap justify-center border-2 border-gray-400 h-12 content-center">
+    <div class="flex flex-wrap justify-center border-2 border-gray-400 h-12 content-center">
         <div class="flex w-full justify-center">
             <form action="{% url 'objection-list' %}" method="get" class="flex w-full justify-center">
                 <input id="al-search" type="text"
@@ -20,9 +20,9 @@
                 <input class="h-8 w-24 justify-center text-xs text-center text-indigo-100 transition-colors duration-150 bg-blue-700 rounded-lg cursor-pointer focus:shadow-outline hover:bg-indigo-800" type="submit" value="Search" />
             </form>
         </div>
-    </div>-->
+    </div>
     {% if objections %}
-        <!--<div class="flex w-full"><div class="flex w-2/3"><p class = "py-2 text-left"> Click on Objection record to Update or <span><a href="{% url 'objection-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p></div></div>-->
+        <div class="flex w-full"><div class="flex w-2/3"><p class = "py-2 text-left"> Click on Objection record to Update or <span><a href="{% url 'objection-create' %}" class="font-bold text-gray-500 hover:text-blue-800 underline">Click here to Add a new Record</a></span></p></div></div>
             <table id="obj" class="min-w-full table-auto display">
                 <thead class="justify-between">
                 <tr class="bg-gray-800">
