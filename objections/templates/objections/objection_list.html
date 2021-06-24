@@ -56,16 +56,16 @@
                     <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.agent|default_if_none:"&nbsp;" }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted|date:'Y-m-d h:i A' }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_submitted|date:'Y-m-d H:i' }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left hidden md:table-cell">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start|date:'Y-m-d h:i A' }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_start|date:'Y-m-d H:i' }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left hidden md:table-cell">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|date:'Y-m-d h:i A' }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|date:'Y-m-d H:i' }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left hidden md:table-cell">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|date:'Y-m-d h:i A' }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|date:'Y-m-d H:i' }}</a></span>
                     </td>                                                                                                    
                 </tr>
                 {% endfor %}
