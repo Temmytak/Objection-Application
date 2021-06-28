@@ -36,7 +36,7 @@
                     <span class="text-gray-300">Due Date</span>
                     </th>
                     <th class="px-8 py-2 text-left hidden md:table-cell">
-                    <span class="text-gray-300">End Date</span>
+                    <span class="text-gray-300">Status Note</span>
                     </th>                                                                                                    
                 </tr>
                 </thead>
@@ -65,7 +65,7 @@
                     <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.due_date|date:'Y-m-d H:i' }}</a></span>
                     </td>
                     <td class="px-8 py-2 text-left hidden md:table-cell">
-                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.date_processing_end|date:'Y-m-d H:i' }}</a></span>
+                    <span><a href="/objection/objections-list/{{ objection.pk }}/">{{ objection.status_note|default_if_none:"&nbsp;" }}</a></span>
                     </td>                                                                                                    
                 </tr>
                 {% endfor %}

@@ -832,7 +832,7 @@ class objection_open(LoginRequiredMixin, ListView):
         "date_submitted",
         "date_processing_start",
         "due_date",
-        "date_processing_end"
+        "status_note"
     ]
 
     def get_queryset(self):
